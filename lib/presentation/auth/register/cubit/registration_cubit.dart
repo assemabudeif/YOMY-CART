@@ -41,8 +41,9 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   void skipButtonPressed() {}
 
   Future<void> registerButtonPressed(BuildContext context) async {
-    emit(RegistrationLoading());
     if (formKey.currentState!.validate() && agree) {
+    emit(RegistrationLoading());
+
       RegisterModel registerModel = await Repository.instance.register(
         firstName: firstNameController.text,
         lastName: lastNameController.text,
