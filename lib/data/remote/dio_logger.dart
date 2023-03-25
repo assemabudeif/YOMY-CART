@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '/data/remote/api_services.dart';
+import 'end_points.dart';
 
 class DioLogger {
   static Dio getDio() {

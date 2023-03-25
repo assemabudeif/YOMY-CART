@@ -27,14 +27,19 @@ class ImageAssets {
   static const String hardees = '$imagePath/hardees.png';
   static const String macRestaurant = '$imagePath/mac_restaurant.png';
   static const String kfcRestaurant = '$imagePath/kfc_restaurant.png';
-  static const String pizzaKingRestaurant = '$imagePath/pizza_king_restaurant.png';
+  static const String pizzaKingRestaurant =
+      '$imagePath/pizza_king_restaurant.png';
 
-  static const String spicesFoodProducts = '$imagePath/spices_food_products.png';
+  static const String spicesFoodProducts =
+      '$imagePath/spices_food_products.png';
   static const String fishFoodProducts = '$imagePath/fish_food_products.png';
-  static const String meatMarkeFoodProducts = '$imagePath/meat_marke_food_products.png';
-  static const String dawagenFoodProducts = '$imagePath/dawagen_food_produts.png';
+  static const String meatMarkeFoodProducts =
+      '$imagePath/meat_marke_food_products.png';
+  static const String dawagenFoodProducts =
+      '$imagePath/dawagen_food_produts.png';
 
-  static const String kazyonMarketNearest = '$imagePath/kazyon_market_nearest.png';
+  static const String kazyonMarketNearest =
+      '$imagePath/kazyon_market_nearest.png';
   static const String bimNearest = '$imagePath/bim_nearest.png';
   static const String alOthiemNearest = '$imagePath/al_othiem_nearest.png';
   static const String elGizawyNearest = '$imagePath/el_gizawy_nearest.png';
@@ -73,7 +78,8 @@ class ImageAssets {
   static const String squareIcon = '$imagePath/square_icon.svg';
   static const String drinksImg = '$imagePath/drinks_img.svg';
   static const String sweetsIcon = '$imagePath/sweets_icon.svg';
-  static const String cleaningProductIcon = '$imagePath/cleaning_product_icon.svg';
+  static const String cleaningProductIcon =
+      '$imagePath/cleaning_product_icon.svg';
   static const String foodsIcon = '$imagePath/foods_icon.svg';
   static const String whiteSquare = '$imagePath/white_square.svg';
   static const String sortingIcon = '$imagePath/sorting_icon.svg';
@@ -87,13 +93,14 @@ class ImageAssets {
   static const String freshMarket = '$imagePath/fresh_market.png';
   static const String addToBasketIcon = '$imagePath/add_to_basket_icon.svg';
 
-  static const String creditCardCartIcon = '$imagePath/credit_card_cart_icon.svg';
-  static const String discountCouponIcon = '$imagePath/discount_coupon_icon.svg';
+  static const String creditCardCartIcon =
+      '$imagePath/credit_card_cart_icon.svg';
+  static const String discountCouponIcon =
+      '$imagePath/discount_coupon_icon.svg';
   static const String dollarIcon = '$imagePath/dollar_icon.svg';
   static const String visaIcon = '$imagePath/visa_icon.svg';
 
   static const String egyptMap = '$imagePath/egypt_map.svg';
-
 
 // static const String  = '$imagePath/.svg';
 // static const String  = '$imagePath/.svg';

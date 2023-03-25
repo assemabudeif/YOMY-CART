@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '/data/local/shared_prefrences.dart';
 import '/models/tokens/tokens_model.dart';
 import '/presentation/account/account_screen.dart';
@@ -10,7 +11,6 @@ import '/presentation/home/home_screen.dart';
 import '/presentation/resources/assets_manager.dart';
 import '/presentation/resources/strings_manager.dart';
 import '/utilis/consetant.dart';
-
 import '../../../models/tokens/tokens_error400_model.dart';
 import '../../../models/tokens/tokens_error_model.dart';
 import '../../../models/tokens/tokens_success_model.dart';
@@ -98,7 +98,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> getTokens() async {
     emit(HomeGetTokensLoadingState());
-    TokensModel tokensModel = await Repository.instance.getToken();
+    TokensModel tokensModel =
+        await Repository.instance.authRepository.getToken();
     if (tokensModel is TokensSuccessModel) {
       log('Token: ${tokensModel.token!}');
       token = tokensModel.token!;

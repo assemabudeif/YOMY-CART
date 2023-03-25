@@ -1,17 +1,11 @@
-import 'dart:developer';
-
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import '/presentation/home/cubit/home_cubit.dart';
-import '/presentation/resources/assets_manager.dart';
-import '/presentation/resources/font_manager.dart';
-import '/presentation/resources/strings_manager.dart';
-import '/presentation/resources/values_manager.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '/presentation/home/cubit/home_cubit.dart';
+import '/presentation/resources/strings_manager.dart';
+import '/presentation/resources/values_manager.dart';
 import '../resources/colors_manager.dart';
 import '../widgets/home_list_item_widget.dart';
 
@@ -134,7 +128,8 @@ class HomeScreen extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.01,
                     ),
                     SizedBox(
-                      height: AppSize.s155,
+                      height:
+                          MediaQuery.of(context).size.height * AppSize.s0_25,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
@@ -176,7 +171,8 @@ class HomeScreen extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.01,
                     ),
                     SizedBox(
-                      height: AppSize.s155,
+                      height:
+                          MediaQuery.of(context).size.height * AppSize.s0_25,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
@@ -218,7 +214,8 @@ class HomeScreen extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.01,
                     ),
                     SizedBox(
-                      height: AppSize.s155,
+                      height:
+                          MediaQuery.of(context).size.height * AppSize.s0_25,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {

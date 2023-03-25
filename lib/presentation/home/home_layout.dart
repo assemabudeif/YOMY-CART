@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import '/presentation/cart/cubit/cart_cubit.dart';
 import '/presentation/categories/cubit/categories_cubit.dart';
 import '/presentation/home/cubit/home_cubit.dart';
@@ -27,7 +28,7 @@ class HomeLayout extends StatelessWidget {
           var cubit = HomeCubit.get(context);
           return Scaffold(
             bottomNavigationBar: Container(
-              height: MediaQuery.of(context).size.height * 0.12,
+              height: MediaQuery.of(context).size.height * 0.1,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
@@ -53,7 +54,7 @@ class HomeLayout extends StatelessWidget {
                             Expanded(
                               child: SvgPicture.asset(
                                 e.icon!,
-                                width: MediaQuery.of(context).size.width * 0.11,
+                                width: MediaQuery.of(context).size.width * 0.08,
                                 color: cubit.currentIndex == e.index
                                     ? ColorManager.primary
                                     : ColorManager.grey3,

@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 import '/models/register/register_error400_model.dart';
 import '/models/register/register_error_model.dart';
 import '/models/register/register_model.dart';
 import '/models/register/register_success_model.dart';
 import '/presentation/resources/routes_manager.dart';
-
 import '../../../../repository/repo.dart';
 
 part 'registration_state.dart';
@@ -42,9 +42,10 @@ class RegistrationCubit extends Cubit<RegistrationState> {
 
   Future<void> registerButtonPressed(BuildContext context) async {
     if (formKey.currentState!.validate() && agree) {
-    emit(RegistrationLoading());
+      emit(RegistrationLoading());
 
-      RegisterModel registerModel = await Repository.instance.register(
+      RegisterModel registerModel =
+          await Repository.instance.authRepository.register(
         firstName: firstNameController.text,
         lastName: lastNameController.text,
         email: emailController.text,
