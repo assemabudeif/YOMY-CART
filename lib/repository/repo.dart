@@ -5,5 +5,5 @@ class Repository {
   Repository._internal();
   factory Repository() => instance;
 
-  get authRepository => AuthRepository.instance;
+  AuthRepository authRepository() => AuthRepository.instance;
 }

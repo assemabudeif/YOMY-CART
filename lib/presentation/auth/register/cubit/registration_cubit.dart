@@ -2,8 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../../models/tokens/tokens_error_model.dart';
+import '../../../../models/tokens/tokens_model.dart';
+import '../../../../models/tokens/tokens_success_model.dart';
+import '../../../../utilis/error_handler.dart';
 import '/models/register/register_error400_model.dart';
 import '/models/register/register_error_model.dart';
 import '/models/register/register_model.dart';
@@ -28,6 +31,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   var confirmPasswordController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   bool agree = false;
+  String adminToken = '';
 
   void onAgreeChanged(bool? value) {
     emit(RegistrationInitial());
@@ -40,51 +44,59 @@ class RegistrationCubit extends Cubit<RegistrationState> {
 
   void skipButtonPressed() {}
 
+  getAdminToken() async {
+    TokensModel tokenModel =
+        await Repository.instance.authRepository().getToken(
+              email: "admin@root.com",
+              password: "123Pa\$\$word!",
+            );
+    if (tokenModel is TokensSuccessModel) {
+      log('Token: ${tokenModel.token!}');
+      adminToken = tokenModel.token!;
+    } else if (tokenModel is TokensErrorModel) {
+      log(tokenModel.messages!.toString());
+    }
+  }
+
   Future<void> registerButtonPressed(BuildContext context) async {
+    await getAdminToken();
     if (formKey.currentState!.validate() && agree) {
       emit(RegistrationLoading());
 
       RegisterModel registerModel =
-          await Repository.instance.authRepository.register(
-        firstName: firstNameController.text,
-        lastName: lastNameController.text,
-        email: emailController.text,
-        userName: userNameController.text,
-        mobile: mobileController.text,
-        password: passwordController.text,
-        confirmPassword: confirmPasswordController.text,
-      );
+          await Repository.instance.authRepository().register(
+                firstName: firstNameController.text,
+                lastName: lastNameController.text,
+                email: emailController.text,
+                userName: userNameController.text,
+                mobile: mobileController.text,
+                password: passwordController.text,
+                confirmPassword: confirmPasswordController.text,
+                adminToken: adminToken,
+              );
       if (registerModel is RegisterSuccessModel) {
         log(registerModel.message!);
-        Fluttertoast.showToast(
-          msg: registerModel.message!,
-          toastLength: Toast.LENGTH_SHORT,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0,
+        ErrorHandler.showSuccessSnackBar(
+          message: registerModel.message!,
+          context: context,
         );
         Navigator.pushNamedAndRemoveUntil(
-            context, Routes.home, (route) => false);
+            context, Routes.loginRoute, (route) => false);
         emit(RegistrationSuccess());
       } else if (registerModel is RegisterErrorModel) {
         log(registerModel.messages!.toString());
-        Fluttertoast.showToast(
-          msg: registerModel.messages![0],
-          toastLength: Toast.LENGTH_SHORT,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
+        ErrorHandler.showErrorSnackBar(
+          context: context,
+          message: registerModel.messages![0],
         );
         emit(RegistrationError(registerModel.messages![0]));
       } else if (registerModel is RegisterError400Model) {
         log(registerModel.errors![0].toString());
-        Fluttertoast.showToast(
-          msg: registerModel.errors!.toString(),
-          toastLength: Toast.LENGTH_SHORT,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
+        ErrorHandler.showErrorSnackBar(
+          context: context,
+          message: registerModel.errors!.toString(),
         );
+
         emit(RegistrationError(registerModel.errors![0].toString()));
       }
     }

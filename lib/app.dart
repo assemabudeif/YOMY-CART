@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'presentation/auth/login/cubit/login_cubit.dart';
+import 'presentation/auth/register/cubit/registration_cubit.dart';
 import 'presentation/home/cubit/home_cubit.dart';
 import 'presentation/resources/strings_manager.dart';
 import 'presentation/resources/theme_manager.dart';
 import 'presentation/resources/routes_manager.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.homeRoute});
+  final String homeRoute;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => HomeCubit()..getTokens()),
+        BlocProvider(create: (context) => HomeCubit()),
+        BlocProvider(create: (BuildContext context) => LoginCubit()),
+        BlocProvider(create: (BuildContext context) => RegistrationCubit()),
       ],
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
@@ -25,7 +30,7 @@ class MyApp extends StatelessWidget {
             theme: getApplicationTheme(),
             debugShowCheckedModeBanner: false,
             onGenerateRoute: AppRoutes.onGenerateRoute,
-            initialRoute: Routes.guideRoute,
+            initialRoute: homeRoute,
           );
         },
       ),

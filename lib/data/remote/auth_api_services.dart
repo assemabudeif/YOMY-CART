@@ -19,14 +19,17 @@ class AuthApiServices {
   static final AuthApiServices instance = AuthApiServices._instance();
   Dio dio = DioLogger.getDio();
 
-  Future<TokensModel> getToken() async {
+  Future<TokensModel> getToken({
+    required String email,
+    required String password,
+  }) async {
     try {
       // TODO: Handle Get Tokens Success
       Response response = await dio.post(
         Endpoints.tokens,
         data: {
-          "email": "admin@root.com",
-          "password": "123Pa\$\$word!",
+          "email": email,
+          "password": password,
         },
       );
       if (response.statusCode == 200) {
@@ -52,9 +55,10 @@ class AuthApiServices {
     required String mobile,
     required String password,
     required String confirmPassword,
+    required String adminToken,
   }) async {
     try {
-      dio.options.headers['Authorization'] = 'Bearer $token';
+      dio.options.headers['Authorization'] = 'Bearer $adminToken';
       log(token);
       Response response = await dio.post(
         Endpoints.register,

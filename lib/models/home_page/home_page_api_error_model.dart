@@ -1,9 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'home_page_api_model.dart';
+
 part 'home_page_api_error_model.g.dart';
 
 @JsonSerializable()
-class HomePageApiErrorModel {
+class HomePageApiErrorModel extends HomePageApiModel {
   @JsonKey(defaultValue: [])
   final List<String> messages;
   @JsonKey(defaultValue: '')
@@ -17,7 +19,7 @@ class HomePageApiErrorModel {
   @JsonKey(defaultValue: 0)
   final int statusCode;
 
-  const HomePageApiErrorModel({
+  HomePageApiErrorModel({
     required this.messages,
     required this.source,
     required this.exception,

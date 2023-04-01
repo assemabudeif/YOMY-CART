@@ -8,6 +8,7 @@ import '/utilis/bloc_observer.dart';
 import '/utilis/consetant.dart';
 
 import 'data/local/shared_prefrences.dart';
+import 'presentation/resources/routes_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,5 +18,10 @@ void main() async {
   token = await SharedPref.getData(key: tokenKey) ?? '';
   refreshToken = await SharedPref.getData(key: refreshTokenKey) ?? '';
   log(token);
-  runApp(const MyApp());
+  String homeRoute = token.isEmpty ? Routes.guideRoute : Routes.home;
+  runApp(
+    MyApp(
+      homeRoute: homeRoute,
+    ),
+  );
 }

@@ -89,12 +89,17 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(height: AppSize.s10),
-                                DefaultButtonWidget(
-                                  text: StringsManager.login,
-                                  onPressed: () {
-                                    cubit.loginOnPressed(context);
-                                  },
-                                ),
+                                if (state is LoginGetTokensLoadingState)
+                                  const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                if (state is! LoginGetTokensLoadingState)
+                                  DefaultButtonWidget(
+                                    text: StringsManager.login,
+                                    onPressed: () {
+                                      cubit.loginOnPressed(context);
+                                    },
+                                  ),
                                 const SizedBox(height: AppSize.s12),
                                 Row(
                                   children: [

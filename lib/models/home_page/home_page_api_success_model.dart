@@ -1,9 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'home_page_api_model.dart';
+
 part 'home_page_api_success_model.g.dart';
 
 @JsonSerializable()
-class HomePageApiSuccessModel {
+class HomePageApiSuccessModel extends HomePageApiModel {
   final List<Data>? data;
   final int? currentPage;
   final int? totalPages;
@@ -12,7 +14,7 @@ class HomePageApiSuccessModel {
   final bool? hasPreviousPage;
   final bool? hasNextPage;
 
-  const HomePageApiSuccessModel({
+  HomePageApiSuccessModel({
     this.data,
     this.currentPage,
     this.totalPages,
@@ -44,7 +46,7 @@ class Data {
   final String? sliderColor;
   final int? sliderWidth;
   final int? sliderHeight;
-  final List<HomePageDetailDto>? homePageDetailDto;
+  final List<Homepagedetaildto>? homePageDetailDto;
 
   const Data({
     this.pageId,

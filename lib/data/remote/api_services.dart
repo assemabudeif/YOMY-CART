@@ -4,5 +4,5 @@ class ApiServices {
   ApiServices._instance();
   static final ApiServices instance = ApiServices._instance();
 
-  get authApiServices => AuthApiServices.instance;
+  AuthApiServices authApiServices() => AuthApiServices.instance;
 }

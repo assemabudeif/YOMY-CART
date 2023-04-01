@@ -95,28 +95,6 @@ class HomeCubit extends Cubit<HomeState> {
     }
     emit(HomeChangePageIndexState());
   }
-
-  Future<void> getTokens() async {
-    emit(HomeGetTokensLoadingState());
-    TokensModel tokensModel =
-        await Repository.instance.authRepository.getToken();
-    if (tokensModel is TokensSuccessModel) {
-      log('Token: ${tokensModel.token!}');
-      token = tokensModel.token!;
-      SharedPref.setData(key: tokenKey, value: tokensModel.token);
-      refreshToken = tokensModel.refreshToken!;
-      SharedPref.setData(key: refreshTokenKey, value: tokensModel.refreshToken);
-      emit(HomeGetTokensSuccessState());
-    } else if (tokensModel is TokensError400Model) {
-      log(tokensModel.detail!);
-      emit(HomeGetTokensErrorState());
-    } else if (tokensModel is TokensErrorModel) {
-      for (var element in tokensModel.messages!) {
-        log(element);
-      }
-      emit(HomeGetTokensErrorState());
-    }
-  }
 }
 
 class Items {

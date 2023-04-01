@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../auth/login/cubit/login_cubit.dart';
 import '/presentation/cart/cubit/cart_cubit.dart';
 import '/presentation/categories/cubit/categories_cubit.dart';
 import '/presentation/home/cubit/home_cubit.dart';
@@ -15,8 +16,7 @@ class HomeLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-            create: (BuildContext context) => HomeCubit()..getTokens()),
+        BlocProvider(create: (BuildContext context) => HomeCubit()),
         BlocProvider(create: (BuildContext context) => CategoriesCubit()),
         BlocProvider(create: (BuildContext context) => CartCubit()),
       ],

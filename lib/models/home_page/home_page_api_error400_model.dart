@@ -1,9 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'home_page_api_model.dart';
+
 part 'home_page_api_error400_model.g.dart';
 
 @JsonSerializable()
-class HomePageApiError400Model {
+class HomePageApiError400Model extends HomePageApiModel {
   @JsonKey(defaultValue: '')
   final String type;
   @JsonKey(defaultValue: '')
@@ -22,7 +24,7 @@ class HomePageApiError400Model {
   @JsonKey(defaultValue: '')
   final String additionalProp3;
 
-  const HomePageApiError400Model({
+  HomePageApiError400Model({
     required this.type,
     required this.title,
     required this.status,
