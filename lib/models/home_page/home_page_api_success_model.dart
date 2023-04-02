@@ -85,7 +85,7 @@ class Homepagedetaildto {
   final String? externalLink;
   final String? sliderItemImage;
   final String? sliderItemLocation;
-  final int? rate;
+  final num? rate;
 
   const Homepagedetaildto({
     this.sliderItemId,

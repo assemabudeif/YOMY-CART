@@ -1,3 +1,4 @@
+import 'Home_repo.dart';
 import 'auth_repo.dart';
 
 class Repository {
@@ -6,4 +7,6 @@ class Repository {
   factory Repository() => instance;
 
   AuthRepository authRepository() => AuthRepository.instance;
+
+  HomeRepository homeRepository() => HomeRepository.instance;
 }

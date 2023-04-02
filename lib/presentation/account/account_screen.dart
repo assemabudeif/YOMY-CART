@@ -324,7 +324,9 @@ class AccountScreen extends StatelessWidget {
                               AccountItemWidget(
                                 text: StringsManager.logOut,
                                 image: ImageAssets.logoutIcon,
-                                onTap: () {},
+                                onTap: () {
+                                  cubit.logout(context: context);
+                                },
                               ),
                             ],
                           ),

@@ -6,79 +6,95 @@ import '/presentation/resources/strings_manager.dart';
 import '/presentation/resources/values_manager.dart';
 
 class HomeListItemWidget extends StatelessWidget {
-  const HomeListItemWidget({Key? key}) : super(key: key);
+  const HomeListItemWidget(
+      {Key? key,
+      required this.image,
+      required this.rate,
+      required this.address,
+      required this.name})
+      : super(key: key);
+  final String image;
+  final num rate;
+  final String address;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: AppSize.s10,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(AppSize.s8),
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.45,
+      child: Card(
+        elevation: AppSize.s10,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(AppSize.s8),
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.asset(
-            ImageAssets.koshari,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(AppPadding.p8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  StringsManager.tahreer,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-                Row(
-                  children: [
-                    RatingBar.builder(
-                      initialRating: 1,
-                      minRating: 1,
-                      itemSize: AppSize.s12,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      itemPadding: EdgeInsets.zero,
-                      itemBuilder: (context, _) => const Icon(
-                        Icons.star,
-                        color: ColorManager.accent,
-                      ),
-                      onRatingUpdate: (rating) {},
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.02,
-                    ),
-                    Text(
-                      '1.5(402)',
-                      style: Theme.of(context).textTheme.caption,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.01,
-                ),
-                Row(
-                  children: [
-                    Image.asset(
-                      ImageAssets.mapIcon,
-                      height: MediaQuery.of(context).size.height * 0.02,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.02,
-                    ),
-                    Text(
-                      StringsManager.haramGiza,
-                      style: Theme.of(context).textTheme.caption,
-                    ),
-                  ],
-                ),
-              ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.network(
+              image,
+              height: MediaQuery.of(context).size.height * 0.12,
+              width: MediaQuery.of(context).size.width * 0.45,
+              fit: BoxFit.fitHeight,
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(AppPadding.p8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  Row(
+                    children: [
+                      RatingBar.builder(
+                        initialRating: 1,
+                        minRating: 1,
+                        itemSize: AppSize.s12,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: rate.toInt(),
+                        itemPadding: EdgeInsets.zero,
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star,
+                          color: ColorManager.accent,
+                        ),
+                        onRatingUpdate: (rating) {},
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.02,
+                      ),
+                      Text(
+                        '1.5(402)',
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                  Row(
+                    children: [
+                      Image.asset(
+                        ImageAssets.mapIcon,
+                        height: MediaQuery.of(context).size.height * 0.02,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.02,
+                      ),
+                      Text(
+                        address,
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

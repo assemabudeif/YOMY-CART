@@ -84,7 +84,7 @@ Homepagedetaildto _$HomepagedetaildtoFromJson(Map<String, dynamic> json) =>
       externalLink: json['externalLink'] as String?,
       sliderItemImage: json['sliderItemImage'] as String?,
       sliderItemLocation: json['sliderItemLocation'] as String?,
-      rate: json['rate'] as int?,
+      rate: json['rate'] as num?,
     );
 
 Map<String, dynamic> _$HomepagedetaildtoToJson(Homepagedetaildto instance) =>

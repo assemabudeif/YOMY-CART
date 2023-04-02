@@ -2,7 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yomy_cart/models/home_page/home_page_api_error400_model.dart';
 
+import '../../../models/home_page/home_page_api_error_model.dart';
+import '../../../models/home_page/home_page_api_success_model.dart';
+import '../../resources/routes_manager.dart';
 import '/data/local/shared_prefrences.dart';
 import '/models/tokens/tokens_model.dart';
 import '/presentation/account/account_screen.dart';
@@ -23,6 +27,10 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
 
   static HomeCubit get(BuildContext context) => BlocProvider.of(context);
+
+  HomePageApiSuccessModel? homePageApiModel;
+  HomePageApiErrorModel? homePageApiErrorModel;
+  HomePageApiError400Model? homePageApiError404Model;
 
   List<String> items = [
     for (int i = 0; i < 5; i++) ImageAssets.pizzaKing,
@@ -88,12 +96,38 @@ class HomeCubit extends Cubit<HomeState> {
     if (index == 2) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => CartScreen()),
+        MaterialPageRoute(builder: (context) => const CartScreen()),
       );
     } else {
       currentIndex = index;
     }
     emit(HomeChangePageIndexState());
+  }
+
+  getHomeScreenApi({required BuildContext context}) async {
+    emit(HomeGetHomePageDataLoadingState());
+    final response =
+        await Repository.instance.homeRepository().featchHomeData();
+    // return response;
+    if (response is HomePageApiSuccessModel) {
+      log(response.data!.toString());
+      homePageApiModel = response;
+      emit(HomeGetHomePageDataSuccessState(response));
+    } else if (response is HomePageApiErrorModel) {
+      log('Error: ${response.messages}');
+      if (response.messages[0] == "Authentication Failed.") {
+        log('Error: ${response.messages}');
+
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.loginRoute, (route) => false);
+      }
+      homePageApiErrorModel = response;
+      emit(HomeGetHomePageDataErrorState(response));
+    } else if (response is HomePageApiError400Model) {
+      log(response.detail.toString());
+      homePageApiError404Model = response;
+      emit(HomeGetHomePageDataError404State(response));
+    }
   }
 }
 
