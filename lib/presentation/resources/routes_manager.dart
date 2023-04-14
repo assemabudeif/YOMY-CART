@@ -27,7 +27,6 @@ import '/presentation/search/search_filter_screen.dart';
 import '/presentation/search/search_screen.dart';
 import '/presentation/shop/shop_about_screen.dart';
 import '/presentation/shop/shop_filter_screen.dart';
-import '/presentation/shop/shop_screen.dart';
 import '/presentation/wish_list/wish_filter_screen.dart';
 import '/presentation/wish_list/wish_list_screen.dart';
 
@@ -49,7 +48,7 @@ class Routes {
   static const about = '/about';
   static const policy = '/policy';
   static const contactUs = '/contact_us';
-  static const shop = '/shop';
+ // static const shop = '/shop';
   static const shopAbout = '/shop_about';
   static const branches = '/branches';
   static const reviews = '/reviews';
@@ -108,8 +107,8 @@ class AppRoutes {
             builder: (context) => const PrivacyPolicyScreen());
       case Routes.contactUs:
         return MaterialPageRoute(builder: (context) => ContactusScreen());
-      case Routes.shop:
-        return MaterialPageRoute(builder: (context) => ShopScreen());
+    //  case Routes.shop:
+      //  return MaterialPageRoute(builder: (context) => ShopScreen());
       case Routes.shopAbout:
         return MaterialPageRoute(builder: (context) => ShopAboutScreen());
       case Routes.branches:

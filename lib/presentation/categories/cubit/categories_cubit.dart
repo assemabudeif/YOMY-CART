@@ -1,11 +1,18 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yomy_cart/models/Store_page/store_page_error400_model.dart';
+import 'package:yomy_cart/models/Store_page/store_page_success_model.dart';
+import '../../../models/Store_page/store_page_error_model.dart';
+import '../../resources/routes_manager.dart';
 import '/models/category_common_model.dart';
 import '/models/category_item_model.dart';
 import '/models/category_nearest_model.dart';
 import '/presentation/categories/cubit/categories_state.dart';
 import '/presentation/resources/assets_manager.dart';
 import '/presentation/resources/strings_manager.dart';
+import '../../../../repository/repo.dart';
 
 class CategoriesCubit extends Cubit<CategoriesState> {
   CategoriesCubit() : super(CategoriesInitial());
@@ -227,4 +234,38 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       ),
     ],
   );
+
+  late StorePageSuccessModel storePageSuccessModel;
+
+  late StorePageError400Model storePageError400Model;
+  late StorePageErrorModel storePageErrorModel;
+
+  ///ToDo Function inputs
+
+  Future<void> shopPageButtonPressed(BuildContext context) async {
+    emit(GetShopPageLoadingState());
+    final response =
+        await Repository.instance.storePageRepository().featchHomeData();
+
+    if (response is StorePageSuccessModel) {
+      log(response.data!.toString());
+      storePageSuccessModel = response;
+
+      emit(GetShopPageSuccessState(response));
+    } else if (response is StorePageErrorModel) {
+      log('Error: ${response.messages}');
+      if (response.messages![0] == "Authentication Failed.") {
+        log('Error: ${response.messages}');
+
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.loginRoute, (route) => false);
+      }
+      storePageErrorModel = response;
+      emit(GetShopPageErrorState(response));
+    } else if (response is StorePageError400Model) {
+      log(response.detail.toString());
+      storePageError400Model = response;
+      emit(GetShopPageError400State(response));
+    }
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../models/Store_page/store_page_success_model.dart';
 import '/presentation/resources/assets_manager.dart';
 import '/presentation/resources/colors_manager.dart';
 import '/presentation/resources/font_manager.dart';
@@ -16,7 +17,12 @@ import '/presentation/widgets/shop_item_vertical_widget.dart';
 import '/presentation/widgets/shop_search_bar_widget.dart';
 
 class ShopScreen extends StatelessWidget {
-  const ShopScreen({Key? key}) : super(key: key);
+  final Data storePageSuccessDataModel;
+
+  const ShopScreen({
+    Key? key,
+    required this.storePageSuccessDataModel,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +71,8 @@ class ShopScreen extends StatelessWidget {
                   Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
-                      Image.asset(
-                        ImageAssets.muskMarket,
+                      Image.network(
+                        storePageSuccessDataModel.storeImage!,
                         width: double.infinity,
                         height: AppSize.s156,
                       ),
@@ -79,7 +85,7 @@ class ShopScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             Text(
-                              'MUSK MARKET',
+                              storePageSuccessDataModel.storeName!,
                               style: const TextStyle(
                                 color: ColorManager.white,
                                 fontWeight: FontWeightManager.medium,
@@ -106,11 +112,12 @@ class ShopScreen extends StatelessWidget {
                                 radius: AppSize.s25,
                                 backgroundColor: ColorManager.accent,
                                 child: Icon(
-                                  cubit.isFavorite
+                                  storePageSuccessDataModel.isAddToFavoraite!
                                       ? Icons.favorite
                                       : Icons.favorite_border,
                                   size: AppSize.s19,
-                                  color: cubit.isFavorite
+                                  color: storePageSuccessDataModel
+                                          .isAddToFavoraite!
                                       ? ColorManager.red
                                       : Colors.white,
                                 ),
@@ -134,14 +141,16 @@ class ShopScreen extends StatelessWidget {
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) => ShopCategoryItemWidget(
-                          image: cubit.model[index].image,
-                          text: cubit.model[index].name,
+                          image: storePageSuccessDataModel.storePageTypesDto![index].storeTypeImage!,
+                          text: storePageSuccessDataModel.storePageTypesDto![index].storeTypeName!,
+                        ///todo
                           isTaped: cubit.model[index].isTaped,
                         ),
                         separatorBuilder: (context, index) => const SizedBox(
                           width: AppSize.s16,
                         ),
-                        itemCount: cubit.model.length,
+                        itemCount:
+                            storePageSuccessDataModel.storePageTypesDto!.length,
                       ),
                     ),
                   ),
