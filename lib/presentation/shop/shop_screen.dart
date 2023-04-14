@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../models/Store_page/store_page_success_model.dart';
 import '/presentation/resources/assets_manager.dart';
 import '/presentation/resources/colors_manager.dart';
 import '/presentation/resources/font_manager.dart';
@@ -16,7 +17,12 @@ import '/presentation/widgets/shop_item_vertical_widget.dart';
 import '/presentation/widgets/shop_search_bar_widget.dart';
 
 class ShopScreen extends StatelessWidget {
-  const ShopScreen({Key? key}) : super(key: key);
+  final StorePageSuccessModel storePageSuccessModel;
+
+  const ShopScreen({
+    Key? key,
+    required this.storePageSuccessModel,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
