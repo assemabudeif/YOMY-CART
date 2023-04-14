@@ -32,7 +32,7 @@ class CategoryItemScreenWidget extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) => ShopScreen(
-                        storePageSuccessModel: state.storePageSuccessModel,
+                        storePageSuccessDataModel: state.storePageSuccessModel.data![0],
                       )));
         }
       },
