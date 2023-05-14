@@ -20,8 +20,6 @@ void main() async {
   log(token);
   String homeRoute = token.isEmpty ? Routes.guideRoute : Routes.home;
   runApp(
-    MyApp(
-      homeRoute: homeRoute,
-    ),
+    MyApp(homeRoute: homeRoute),
   );
 }

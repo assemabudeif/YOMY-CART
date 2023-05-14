@@ -74,7 +74,7 @@ class CategoriesScreen extends StatelessWidget {
                             image:
                                 'https://media-cdn.tripadvisor.com/media/photo-o/0d/f6/48/25/photo0jpg.jpg',
                             name: StringsManager.tahreer,
-                            rate: 10,
+                            rate: 5,
                           ),
                         ),
                       ),
