@@ -4,7 +4,6 @@ import '/presentation/home/cubit/home_cubit.dart';
 import '/presentation/resources/strings_manager.dart';
 import '/presentation/resources/values_manager.dart';
 import '../resources/colors_manager.dart';
-import '../widgets/home_list_item_widget.dart';
 import 'widgets/home_screen_body_widget.dart';
 import 'widgets/home_screen_header_widget.dart';
 

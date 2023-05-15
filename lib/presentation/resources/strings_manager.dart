@@ -266,4 +266,6 @@ of the printing and typesetting
 // static const String    = '';
 // static const String    = '';
 // static const String    = '';
+
+  static const String noItmesFound = 'No Items found';
 }

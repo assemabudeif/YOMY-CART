@@ -26,3 +26,11 @@ class GetShopPageError400State extends CategoriesState {
 
   GetShopPageError400State(this.storePageError400Model);
 }
+
+class GetProductCategoryPageLoadingState extends CategoriesState {}
+
+class GetProductCategoryPageSuccessState extends CategoriesState {}
+
+class GetProductCategoryPageErrorState extends CategoriesState {}
+
+class GetProductCategoryPageError400State extends CategoriesState {}

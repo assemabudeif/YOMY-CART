@@ -24,7 +24,6 @@ class AuthApiServices {
     required String password,
   }) async {
     try {
-      // TODO: Handle Get Tokens Success
       Response response = await dio.post(
         Endpoints.tokens,
         data: {

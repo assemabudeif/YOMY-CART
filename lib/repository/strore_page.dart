@@ -1,4 +1,4 @@
-import '../data/remote/store_page_api.dart';
+import '../data/remote/api_services.dart';
 import '../models/Store_page/store_page_model.dart';
 
 class StorePageRepository {
@@ -8,6 +8,8 @@ class StorePageRepository {
 
   factory StorePageRepository() => instance;
 
-  Future<StorePageModel> featchHomeData() async =>
-      await StorePageApi.getHomePageData();
+  Future<StorePageModel> getStoreDetails(int storeId) async =>
+      await ApiServices.instance
+          .storePageApi()
+          .getStoreDetails(storeId: storeId);
 }

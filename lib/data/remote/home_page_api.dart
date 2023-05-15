@@ -9,7 +9,10 @@ import '../../utilis/consetant.dart';
 import 'end_points.dart';
 
 class HomePageApi {
-  static Future<HomePageApiModel> getHomePageData() async {
+  static HomePageApi instance = HomePageApi._();
+  HomePageApi._();
+
+  Future<HomePageApiModel> getHomePageData() async {
     try {
       Response response = await DioLogger.getDio().post(
         Endpoints.homePageApi,

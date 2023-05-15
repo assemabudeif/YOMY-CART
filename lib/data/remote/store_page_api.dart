@@ -9,36 +9,17 @@ import '../../utilis/consetant.dart';
 import 'end_points.dart';
 
 class StorePageApi {
-  static Future<StorePageModel> getHomePageData() async {
+  static StorePageApi instance = StorePageApi._();
+  StorePageApi._();
+
+  Future<StorePageModel> getStoreDetails({required int storeId}) async {
     try {
       Response response = await DioLogger.getDio().post(
         Endpoints.storePageApi,
         data: {
-          ///ToDo Parameters
-          "advancedSearch": {
-            "fields": [
-              "string"
-            ],
-            "keyword": "string"
-          },
-          "keyword": "string",
-          "advancedFilter": {
-            "logic": "string",
-            "filters": [
-              "string"
-            ],
-            "field": "string",
-            "operator": "string",
-            "value": "string"
-          },
-          "pageNumber": 0,
-          "pageSize": 0,
-          "orderBy": [
-            "string"
-          ],
           "pageId": 1,
-          "storeId": 0,
-          "langId": 1
+          "storeId": storeId,
+          "langId": 1,
         },
         options: Options(
           headers: {

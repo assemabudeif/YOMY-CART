@@ -1,3 +1,4 @@
+import 'package:yomy_cart/repository/product_category_repo.dart';
 import 'package:yomy_cart/repository/strore_page.dart';
 
 import 'Home_repo.dart';
@@ -15,4 +16,6 @@ class Repository {
   HomeRepository homeRepository() => HomeRepository.instance;
 
   StorePageRepository storePageRepository() => StorePageRepository.instance;
+
+  ProductCaegoryRepo productCaegoryRepo() => ProductCaegoryRepo.instance;
 }

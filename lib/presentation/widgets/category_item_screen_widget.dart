@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yomy_cart/presentation/categories/cubit/categories_cubit.dart';
 import 'package:yomy_cart/presentation/categories/cubit/categories_state.dart';
-import '../shop/shop_screen.dart';
 import '/models/category_item_model.dart';
 import '/presentation/resources/colors_manager.dart';
 import '/presentation/resources/font_manager.dart';
@@ -25,177 +24,268 @@ class CategoryItemScreenWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var cubit = CategoriesCubit.get(context);
     var searchController = TextEditingController();
-    return BlocListener<CategoriesCubit, CategoriesState>(
-      listener: (context, state) {
-        if (state is GetShopPageSuccessState) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ShopScreen(
-                        storePageSuccessDataModel: state.storePageSuccessModel.data![0],
-                      )));
-        }
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            model.appBarTitle,
-            style: const TextStyle(
-              letterSpacing: AppSize.none,
-              fontFamily: FontConstants.fontFamily,
-              fontSize: AppSize.s20,
-              color: ColorManager.white,
-              fontWeight: FontWeightManager.bold,
-            ),
-          ),
-          centerTitle: true,
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              CategorySearchTextFieldWidget(searchController: searchController),
-              const SizedBox(
-                height: AppSize.s12,
-              ),
-              // categories Images
-              Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p12),
-                child: SizedBox(
-                  height: AppSize.s92,
-                  child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => Image.asset(
-                      model.categoriesImages[index],
-                      width: AppSize.s92,
-                      height: AppSize.s92,
-                    ),
-                    separatorBuilder: (context, index) => const SizedBox(
-                      width: AppSize.s12,
-                    ),
-                    itemCount: model.categoriesImages.length,
+    return BlocProvider(
+      create: (context) => CategoriesCubit()..getProductCategory(),
+      child: BlocConsumer<CategoriesCubit, CategoriesState>(
+        listener: (context, state) {
+          // if (state is GetShopPageSuccessState) {
+          //   Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //           builder: (context) => ShopScreen(
+          //                 storePageSuccessDataModel:
+          //                     state.storePageSuccessModel.data![0],
+          //               )));
+          // }
+        },
+        builder: (context, state) {
+          if (CategoriesCubit.get(context).productCategoryPageSuccessModel !=
+              null) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  model.appBarTitle,
+                  style: const TextStyle(
+                    letterSpacing: AppSize.none,
+                    fontFamily: FontConstants.fontFamily,
+                    fontSize: AppSize.s20,
+                    color: ColorManager.white,
+                    fontWeight: FontWeightManager.bold,
                   ),
                 ),
+                centerTitle: true,
               ),
-              const SizedBox(
-                height: AppSize.s30,
-              ),
+              body: CategoriesCubit.get(context)
+                      .productCategoryPageSuccessModel!
+                      .data!
+                      .isEmpty
+                  ? const Center(
+                      child: Text(StringsManager.noItmesFound),
+                    )
+                  : SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          CategorySearchTextFieldWidget(
+                              searchController: searchController),
+                          const SizedBox(
+                            height: AppSize.s12,
+                          ),
+                          // categories Images
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: AppPadding.p12),
+                            child: SizedBox(
+                              height: AppSize.s92,
+                              child: ListView.separated(
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) => Image.asset(
+                                  model.categoriesImages[index],
+                                  width: AppSize.s92,
+                                  height: AppSize.s92,
+                                ),
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(
+                                  width: AppSize.s12,
+                                ),
+                                itemCount: model.categoriesImages.length,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: AppSize.s30,
+                          ),
 
-              // common restaurant
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppPadding.p16,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        model.commonText,
-                        maxLines: 2,
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                              fontSize: AppSize.s18,
-                              fontFamily: FontConstants.fontFamily,
+                          // common restaurant
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.p16,
                             ),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        StringsManager.showAll,
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                              color: ColorManager.primaryLight,
-                              fontFamily: FontConstants.fontFamily,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    model.commonText,
+                                    maxLines: 2,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          fontSize: AppSize.s18,
+                                          fontFamily: FontConstants.fontFamily,
+                                        ),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    StringsManager.showAll,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: ColorManager.primaryLight,
+                                          fontFamily: FontConstants.fontFamily,
+                                        ),
+                                  ),
+                                ),
+                              ],
                             ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: AppSize.s25,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p12),
-                child: SizedBox(
-                  height: AppSize.s152,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) =>
-                        CategoryCommonListItemWidget(
-                      model: model.commonModel[index],
-                      onTap: () {
-                        ///ToDo Function inputs
-                        cubit.shopPageButtonPressed(context);
-                      },
-                    ),
-                    separatorBuilder: (context, index) => const SizedBox(
-                      width: AppSize.s14,
-                    ),
-                    itemCount: model.commonModel.length,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: AppSize.s32,
-              ),
+                          ),
+                          const SizedBox(
+                            height: AppSize.s25,
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: AppPadding.p12),
+                            child: SizedBox(
+                              height: AppSize.s152,
+                              child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) =>
+                                    CategoryCommonListItemWidget(
+                                  model: CategoriesCubit.get(context)
+                                      .productCategoryPageSuccessModel!
+                                      .data![index],
+                                  onTap: () {
+                                    ///ToDo Function inputs
+                                    cubit.shopPageButtonPressed(context);
+                                  },
+                                ),
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(
+                                  width: AppSize.s14,
+                                ),
+                                itemCount: CategoriesCubit.get(context)
+                                    .productCategoryPageSuccessModel!
+                                    .data!
+                                    .length,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: AppSize.s32,
+                          ),
 
-              //Nearest Restaurants
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppPadding.p16,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        model.nearestText,
-                        maxLines: 2,
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                              fontSize: AppSize.s18,
-                              fontFamily: FontConstants.fontFamily,
+                          //Nearest Restaurants
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.p16,
                             ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    model.nearestText,
+                                    maxLines: 2,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          fontSize: AppSize.s18,
+                                          fontFamily: FontConstants.fontFamily,
+                                        ),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    StringsManager.showAll,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                          color: ColorManager.primaryLight,
+                                          fontFamily: FontConstants.fontFamily,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          if (CategoriesCubit.get(context)
+                              .productCategoryPageSuccessModel!
+                              .data![0]
+                              .nearestStoreDto!
+                              .isEmpty)
+                            const Text(StringsManager.noItmesFound),
+
+                          if (CategoriesCubit.get(context)
+                              .productCategoryPageSuccessModel!
+                              .data![0]
+                              .nearestStoreDto!
+                              .isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.all(AppPadding.p22),
+                              child: ListView.separated(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, index) =>
+                                    CategoryNearestListItemWidget(
+                                  onTap: () {
+                                    ///ToDo Function inputs
+                                    cubit.shopPageButtonPressed(context);
+                                  },
+                                  model: CategoriesCubit.get(context)
+                                      .productCategoryPageSuccessModel!
+                                      .data![0]
+                                      .nearestStoreDto![index],
+                                ),
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(
+                                  height: AppSize.s22,
+                                ),
+                                itemCount: model.nearestModel.length,
+                              ),
+                            ),
+                        ],
                       ),
                     ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        StringsManager.showAll,
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                              color: ColorManager.primaryLight,
-                              fontFamily: FontConstants.fontFamily,
-                            ),
+              floatingActionButton: const LocationMarkFloatWidget(),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.startFloat,
+            );
+          } else if (CategoriesCubit.get(context)
+                  .productCategoryPageErrorModel !=
+              null) {
+            return Scaffold(
+              body: Center(
+                child: Text(
+                  CategoriesCubit.get(context)
+                      .productCategoryPageErrorModel!
+                      .messages
+                      .toString(),
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: ColorManager.red,
                       ),
-                    ),
-                  ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(AppPadding.p22),
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) =>
-                      CategoryNearestListItemWidget(
-                    onTap: () {
-                      ///ToDo Function inputs
-                      cubit.shopPageButtonPressed(context);
-                    },
-                    model: model.nearestModel[index],
-                  ),
-                  separatorBuilder: (context, index) => const SizedBox(
-                    height: AppSize.s22,
-                  ),
-                  itemCount: model.nearestModel.length,
+            );
+          } else if (CategoriesCubit.get(context)
+                  .productCategoryPageError400Model !=
+              null) {
+            return Scaffold(
+              body: Center(
+                child: Text(
+                  CategoriesCubit.get(context)
+                      .productCategoryPageError400Model!
+                      .errors
+                      .toString(),
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: ColorManager.red,
+                      ),
                 ),
               ),
-            ],
-          ),
-        ),
-        floatingActionButton: const LocationMarkFloatWidget(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+            );
+          } else {
+            return const Scaffold(
+                body: Center(child: CircularProgressIndicator()));
+          }
+        },
       ),
     );
   }

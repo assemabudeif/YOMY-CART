@@ -48,15 +48,23 @@ class HomeScreenBodyWidget extends StatelessWidget {
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return HomeListItemWidget(
-                      name: cubit.homePageApiModel!.data![bodyIndex]
-                          .homePageDetailDto![index].sliderItemName!,
-                      image: cubit.homePageApiModel!.data![bodyIndex]
-                          .homePageDetailDto![index].sliderItemImage!,
-                      address: cubit.homePageApiModel!.data![bodyIndex]
-                          .homePageDetailDto![index].sliderItemLocation!,
-                      rate: cubit.homePageApiModel!.data![bodyIndex]
-                          .homePageDetailDto![index].rate!,
+                    return InkWell(
+                      onTap: () {
+                        HomeCubit.get(context).shopPageButtonPressed(
+                            context,
+                            cubit.homePageApiModel!.data![bodyIndex]
+                                .homePageDetailDto![index].sliderItemNatureId!);
+                      },
+                      child: HomeListItemWidget(
+                        name: cubit.homePageApiModel!.data![bodyIndex]
+                            .homePageDetailDto![index].sliderItemName!,
+                        image: cubit.homePageApiModel!.data![bodyIndex]
+                            .homePageDetailDto![index].sliderItemImage!,
+                        address: cubit.homePageApiModel!.data![bodyIndex]
+                            .homePageDetailDto![index].sliderItemLocation!,
+                        rate: cubit.homePageApiModel!.data![bodyIndex]
+                            .homePageDetailDto![index].rate!,
+                      ),
                     );
                   },
                   separatorBuilder: (context, index) => SizedBox(

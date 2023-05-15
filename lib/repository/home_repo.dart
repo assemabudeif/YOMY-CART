@@ -1,3 +1,5 @@
+import 'package:yomy_cart/data/remote/api_services.dart';
+
 import '/data/remote/home_page_api.dart';
 
 import '../models/home_page/home_page_api_model.dart';
@@ -8,5 +10,5 @@ class HomeRepository {
   factory HomeRepository() => instance;
 
   Future<HomePageApiModel> featchHomeData() async =>
-      await HomePageApi.getHomePageData();
+      await ApiServices.instance.homePageApi().getHomePageData();
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import '/models/category_nearest_model.dart';
+import '/models/product_category_page/product_category_page_success_model.dart';
 import '/presentation/resources/colors_manager.dart';
 import '/presentation/resources/font_manager.dart';
 import '/presentation/resources/values_manager.dart';
 
 class CategoryNearestListItemWidget extends StatelessWidget {
-  final CategoryNearestModel model;
+  final NearestStoreDto model;
   Function() onTap;
 
   CategoryNearestListItemWidget({
@@ -24,8 +24,8 @@ class CategoryNearestListItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Image.asset(
-            model.image,
+          Image.network(
+            model.storeImage!,
             height: AppSize.s92,
             width: AppSize.s125,
             fit: BoxFit.fill,
@@ -40,7 +40,7 @@ class CategoryNearestListItemWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  model.name,
+                  model.storeName!,
                   style: const TextStyle(
                     fontSize: AppSize.s17,
                     fontWeight: FontWeightManager.bold,
@@ -50,19 +50,19 @@ class CategoryNearestListItemWidget extends StatelessWidget {
                 const SizedBox(
                   height: AppSize.s1_5,
                 ),
-                Text(
-                  model.category,
-                  style: const TextStyle(
-                    fontSize: AppSize.s15,
-                    fontWeight: FontWeightManager.bold,
-                    color: ColorManager.grey3,
-                  ),
-                ),
+                // Text(
+                //  model.category,
+                //  style: const TextStyle(
+                //    fontSize: AppSize.s15,
+                //    fontWeight: FontWeightManager.bold,
+                //    color: ColorManager.grey3,
+                //  ),
+                //),
                 const SizedBox(
                   height: AppSize.s1_5,
                 ),
                 Text(
-                  model.time,
+                  model.availability!,
                   style: const TextStyle(
                     fontSize: AppSize.s15,
                     fontWeight: FontWeightManager.bold,
@@ -74,7 +74,7 @@ class CategoryNearestListItemWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     RatingBar.builder(
-                      initialRating: model.rate,
+                      initialRating: model.rate!.toDouble(),
                       minRating: 1,
                       itemSize: AppSize.s12,
                       direction: Axis.horizontal,
@@ -87,25 +87,25 @@ class CategoryNearestListItemWidget extends StatelessWidget {
                       ),
                       onRatingUpdate: (rating) {},
                     ),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.location_on,
-                          color: ColorManager.primary,
-                        ),
-                        const SizedBox(
-                          width: AppSize.s1_5,
-                        ),
-                        Text(
-                          model.distance,
-                          style: const TextStyle(
-                            fontSize: AppSize.s15,
-                            fontWeight: FontWeightManager.bold,
-                            color: ColorManager.primary,
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   children: [
+                    //     const Icon(
+                    //       Icons.location_on,
+                    //       color: ColorManager.primary,
+                    //     ),
+                    //     const SizedBox(
+                    //       width: AppSize.s1_5,
+                    //     ),
+                    //     Text(
+                    //       model.distance,
+                    //       style: const TextStyle(
+                    //         fontSize: AppSize.s15,
+                    //         fontWeight: FontWeightManager.bold,
+                    //         color: ColorManager.primary,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 )
               ],

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:yomy_cart/models/product_category_page/product_category_page_success_model.dart';
 import '/models/category_common_model.dart';
 import '/presentation/resources/assets_manager.dart';
 import '/presentation/resources/colors_manager.dart';
 import '/presentation/resources/values_manager.dart';
 
 class CategoryCommonListItemWidget extends StatelessWidget {
-  final CategoryCommonModel model;
+  final Data model;
   Function() onTap;
 
   CategoryCommonListItemWidget(
@@ -21,10 +22,12 @@ class CategoryCommonListItemWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-              model.image,
-              width: AppSize.s173,
-              height: AppSize.s76,
+            Expanded(
+              child: Image.network(
+                model.categoryImage!,
+                width: AppSize.s173,
+                height: AppSize.s76,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(AppPadding.p8),
@@ -32,13 +35,13 @@ class CategoryCommonListItemWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    model.name,
+                    model.categoryName!,
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   Row(
                     children: [
                       RatingBar.builder(
-                        initialRating: model.rate,
+                        initialRating: model.rate!.toDouble(),
                         minRating: 1,
                         itemSize: AppSize.s12,
                         direction: Axis.horizontal,
@@ -55,7 +58,7 @@ class CategoryCommonListItemWidget extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * 0.02,
                       ),
                       Text(
-                        '${model.ratingNum} ${model.reviewsNum}',
+                        '${model.rate}',
                         style: Theme.of(context).textTheme.caption,
                       ),
                     ],
@@ -72,10 +75,10 @@ class CategoryCommonListItemWidget extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.02,
                       ),
-                      Text(
-                        model.location,
-                        style: Theme.of(context).textTheme.caption,
-                      ),
+                      // Text(
+                      //   model.,
+                      //   style: Theme.of(context).textTheme.caption,
+                      // ),
                     ],
                   ),
                 ],

@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yomy_cart/models/Store_page/store_page_error400_model.dart';
 import 'package:yomy_cart/models/Store_page/store_page_success_model.dart';
+import 'package:yomy_cart/models/product_category_page/product_category_page_model.dart';
 import '../../../models/Store_page/store_page_error_model.dart';
+import '../../../models/product_category_page/product_category_page_error_400_model.dart';
+import '../../../models/product_category_page/product_category_page_error_model.dart';
+import '../../../models/product_category_page/product_category_page_success_model.dart';
 import '../../resources/routes_manager.dart';
 import '/models/category_common_model.dart';
 import '/models/category_item_model.dart';
@@ -18,6 +22,26 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   CategoriesCubit() : super(CategoriesInitial());
 
   static CategoriesCubit get(BuildContext context) => BlocProvider.of(context);
+
+  ProductCategoryPageSuccessModel? productCategoryPageSuccessModel;
+  ProductCategoryPageErrorModel? productCategoryPageErrorModel;
+  ProductCategoryPageError400Model? productCategoryPageError400Model;
+  
+  getProductCategory() async {
+    emit(GetProductCategoryPageLoadingState());
+    ProductCategoryPageModel model =
+        await Repository.instance.productCaegoryRepo().getProductCategory();
+    if (model is ProductCategoryPageSuccessModel) {
+      productCategoryPageSuccessModel = model;
+      emit(GetProductCategoryPageSuccessState());
+    } else if (model is ProductCategoryPageErrorModel) {
+      productCategoryPageErrorModel = model;
+      emit(GetProductCategoryPageErrorState());
+    } else if (model is ProductCategoryPageError400Model) {
+      productCategoryPageError400Model = model;
+      emit(GetProductCategoryPageError400State());
+    }
+  }
 
   CategoryItemModel foodProduct = CategoryItemModel(
     categoriesImages: [
@@ -245,7 +269,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   Future<void> shopPageButtonPressed(BuildContext context) async {
     emit(GetShopPageLoadingState());
     final response =
-        await Repository.instance.storePageRepository().featchHomeData();
+        await Repository.instance.storePageRepository().getStoreDetails(1);
 
     if (response is StorePageSuccessModel) {
       log(response.data!.toString());
