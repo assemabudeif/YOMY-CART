@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+// ignore: unused_import
 import '../auth/login/cubit/login_cubit.dart';
 import '/presentation/cart/cubit/cart_cubit.dart';
 import '/presentation/categories/cubit/categories_cubit.dart';

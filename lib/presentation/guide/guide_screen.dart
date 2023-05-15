@@ -1,13 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import '/presentation/resources/assets_manager.dart';
 import '/presentation/resources/colors_manager.dart';
 import '/presentation/resources/strings_manager.dart';
 import '/presentation/resources/values_manager.dart';
 import '/presentation/widgets/guide_page_view_widget.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class GuideScreen extends StatelessWidget {
   const GuideScreen({Key? key}) : super(key: key);

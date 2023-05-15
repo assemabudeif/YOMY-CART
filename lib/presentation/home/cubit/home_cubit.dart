@@ -7,17 +7,11 @@ import 'package:yomy_cart/models/home_page/home_page_api_error400_model.dart';
 import '../../../models/home_page/home_page_api_error_model.dart';
 import '../../../models/home_page/home_page_api_success_model.dart';
 import '../../resources/routes_manager.dart';
-import '/data/local/shared_prefrences.dart';
-import '/models/tokens/tokens_model.dart';
 import '/presentation/account/account_screen.dart';
 import '/presentation/cart/cart_screen.dart';
 import '/presentation/home/home_screen.dart';
 import '/presentation/resources/assets_manager.dart';
 import '/presentation/resources/strings_manager.dart';
-import '/utilis/consetant.dart';
-import '../../../models/tokens/tokens_error400_model.dart';
-import '../../../models/tokens/tokens_error_model.dart';
-import '../../../models/tokens/tokens_success_model.dart';
 import '../../../repository/repo.dart';
 import '../../categories/categories_screen.dart';
 

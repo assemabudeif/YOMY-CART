@@ -5,6 +5,7 @@ import '/presentation/resources/colors_manager.dart';
 import '/presentation/resources/font_manager.dart';
 import '/presentation/resources/values_manager.dart';
 
+// ignore: must_be_immutable
 class ShopCategoryItemWidget extends StatelessWidget {
   final String image;
   final String text;

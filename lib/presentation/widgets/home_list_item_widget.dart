@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '/presentation/resources/assets_manager.dart';
 import '/presentation/resources/colors_manager.dart';
-import '/presentation/resources/strings_manager.dart';
 import '/presentation/resources/values_manager.dart';
 
 class HomeListItemWidget extends StatelessWidget {
