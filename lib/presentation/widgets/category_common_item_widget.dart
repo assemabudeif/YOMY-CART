@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yomy_cart/models/product_category_page/product_category_page_success_model.dart';
-import '/models/category_common_model.dart';
+import 'package:yomy_cart/presentation/categories/cubit/categories_cubit.dart';
 import '/presentation/resources/assets_manager.dart';
 import '/presentation/resources/colors_manager.dart';
 import '/presentation/resources/values_manager.dart';
 
 class CategoryCommonListItemWidget extends StatelessWidget {
   final Data model;
-  Function() onTap;
 
-  CategoryCommonListItemWidget(
-      {super.key, required this.model, required this.onTap});
+  const CategoryCommonListItemWidget({
+    super.key,
+    required this.model,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: () {
+        CategoriesCubit.get(context)
+            .shopPageButtonPressed(context, model.categoryId!);
+      },
       child: SizedBox(
         height: AppSize.s152,
         child: Column(

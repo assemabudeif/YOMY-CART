@@ -26,7 +26,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   ProductCategoryPageSuccessModel? productCategoryPageSuccessModel;
   ProductCategoryPageErrorModel? productCategoryPageErrorModel;
   ProductCategoryPageError400Model? productCategoryPageError400Model;
-  
+
   getProductCategory() async {
     emit(GetProductCategoryPageLoadingState());
     ProductCategoryPageModel model =
@@ -266,10 +266,10 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
   ///ToDo Function inputs
 
-  Future<void> shopPageButtonPressed(BuildContext context) async {
+  Future<void> shopPageButtonPressed(BuildContext context, int id) async {
     emit(GetShopPageLoadingState());
     final response =
-        await Repository.instance.storePageRepository().getStoreDetails(1);
+        await Repository.instance.storePageRepository().getStoreDetails(id);
 
     if (response is StorePageSuccessModel) {
       log(response.data!.toString());

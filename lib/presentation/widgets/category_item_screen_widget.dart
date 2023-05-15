@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yomy_cart/presentation/categories/cubit/categories_cubit.dart';
 import 'package:yomy_cart/presentation/categories/cubit/categories_state.dart';
+import '../shop/shop_screen.dart';
 import '/models/category_item_model.dart';
 import '/presentation/resources/colors_manager.dart';
 import '/presentation/resources/font_manager.dart';
@@ -28,15 +29,15 @@ class CategoryItemScreenWidget extends StatelessWidget {
       create: (context) => CategoriesCubit()..getProductCategory(),
       child: BlocConsumer<CategoriesCubit, CategoriesState>(
         listener: (context, state) {
-          // if (state is GetShopPageSuccessState) {
-          //   Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //           builder: (context) => ShopScreen(
-          //                 storePageSuccessDataModel:
-          //                     state.storePageSuccessModel.data![0],
-          //               )));
-          // }
+          if (state is GetShopPageSuccessState) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ShopScreen(
+                          storePageSuccessDataModel:
+                              state.storePageSuccessModel.data![0],
+                        )));
+          }
         },
         builder: (context, state) {
           if (CategoriesCubit.get(context).productCategoryPageSuccessModel !=
@@ -148,10 +149,6 @@ class CategoryItemScreenWidget extends StatelessWidget {
                                   model: CategoriesCubit.get(context)
                                       .productCategoryPageSuccessModel!
                                       .data![index],
-                                  onTap: () {
-                                    ///ToDo Function inputs
-                                    cubit.shopPageButtonPressed(context);
-                                  },
                                 ),
                                 separatorBuilder: (context, index) =>
                                     const SizedBox(
@@ -226,10 +223,6 @@ class CategoryItemScreenWidget extends StatelessWidget {
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (context, index) =>
                                     CategoryNearestListItemWidget(
-                                  onTap: () {
-                                    ///ToDo Function inputs
-                                    cubit.shopPageButtonPressed(context);
-                                  },
                                   model: CategoriesCubit.get(context)
                                       .productCategoryPageSuccessModel!
                                       .data![0]

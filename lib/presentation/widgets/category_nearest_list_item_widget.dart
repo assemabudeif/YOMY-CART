@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:yomy_cart/presentation/categories/cubit/categories_cubit.dart';
 import '/models/product_category_page/product_category_page_success_model.dart';
 import '/presentation/resources/colors_manager.dart';
 import '/presentation/resources/font_manager.dart';
@@ -7,18 +8,19 @@ import '/presentation/resources/values_manager.dart';
 
 class CategoryNearestListItemWidget extends StatelessWidget {
   final NearestStoreDto model;
-  Function() onTap;
 
-  CategoryNearestListItemWidget({
+  const CategoryNearestListItemWidget({
     super.key,
     required this.model,
-    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: () {
+        CategoriesCubit.get(context)
+            .shopPageButtonPressed(context, model.storeId!);
+      },
       child: Row(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
