@@ -76,10 +76,10 @@ class ShopScreen extends StatelessWidget {
                         width: double.infinity,
                         height: AppSize.s156,
                       ),
-                      Image.asset(
-                        ImageAssets.shadoImage,
-                        width: double.infinity,
-                      ),
+                      // Image.asset(
+                      //   ImageAssets.shadoImage,
+                      //   width: double.infinity,
+                      // ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Row(
@@ -130,27 +130,34 @@ class ShopScreen extends StatelessWidget {
                   ),
 
                   //categories
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: AppPadding.p17,
-                      top: AppPadding.p20,
-                    ),
-                    child: SizedBox(
-                      height: AppSize.s70,
-                      child: ListView.separated(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => ShopCategoryItemWidget(
-                          image: storePageSuccessDataModel.storePageTypesDto![index].storeTypeImage!,
-                          text: storePageSuccessDataModel.storePageTypesDto![index].storeTypeName!,
-                        ///todo
-                          isTaped: cubit.model[index].isTaped,
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        left: AppPadding.p17,
+                        top: AppPadding.p20,
+                      ),
+                      child: SizedBox(
+                        height: AppSize.s70,
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) =>
+                              ShopCategoryItemWidget(
+                            image: storePageSuccessDataModel
+                                .storePageTypesDto![index].storeTypeImage!,
+                            text: storePageSuccessDataModel
+                                .storePageTypesDto![index].storeTypeName!,
+
+                            ///todo
+                            isTaped: cubit.model[index].isTaped,
+                          ),
+                          separatorBuilder: (context, index) => const SizedBox(
+                            width: AppSize.s16,
+                          ),
+                          itemCount: storePageSuccessDataModel
+                              .storePageTypesDto!.length,
                         ),
-                        separatorBuilder: (context, index) => const SizedBox(
-                          width: AppSize.s16,
-                        ),
-                        itemCount:
-                            storePageSuccessDataModel.storePageTypesDto!.length,
                       ),
                     ),
                   ),

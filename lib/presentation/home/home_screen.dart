@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleSmall!
-                                      .copyWith(fontSize: AppSize.s20),
+                                      .copyWith(fontSize: AppSize.s18),
                                 ),
                                 IconButton(
                                   onPressed: () {},

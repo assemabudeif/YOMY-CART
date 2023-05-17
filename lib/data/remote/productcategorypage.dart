@@ -17,7 +17,7 @@ class ProductCategoryPageApi {
   Future<ProductCategoryPageModel> fetchProductCategory() async {
     try {
       Response response = await DioLogger.getDio().post(
-        Endpoints.productcategorypageApi,
+        Endpoints.productCategoryPageApi,
         data: {
           "keyword": "",
           "pageNumber": 0,

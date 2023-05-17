@@ -1,6 +1,6 @@
-import 'package:yomy_cart/models/Store_page/store_page_model.dart';
+import 'product_details_model.dart';
 
-class StorePageSuccessModel extends StorePageModel {
+class ProductDetailsSuccessModel extends ProductDetailsModel {
   List<Data>? data;
   int? currentPage;
   int? totalPages;
@@ -9,7 +9,7 @@ class StorePageSuccessModel extends StorePageModel {
   bool? hasPreviousPage;
   bool? hasNextPage;
 
-  StorePageSuccessModel(
+  ProductDetailsSuccessModel(
       {this.data,
       this.currentPage,
       this.totalPages,
@@ -18,7 +18,7 @@ class StorePageSuccessModel extends StorePageModel {
       this.hasPreviousPage,
       this.hasNextPage});
 
-  StorePageSuccessModel.fromJson(Map<String, dynamic> json) {
+  ProductDetailsSuccessModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
@@ -56,8 +56,7 @@ class Data {
   String? storeImage;
   bool? isAddToFavoraite;
   int? rate;
-  List<StorePageTypesDto>? storePageTypesDto;
-  List<StorePageProductsDto>? storePageProductsDto;
+  List<ProductDetailsPageDataDto>? productDetailsPageDataDto;
 
   Data(
       {this.pageId,
@@ -67,8 +66,7 @@ class Data {
       this.storeImage,
       this.isAddToFavoraite,
       this.rate,
-      this.storePageTypesDto,
-      this.storePageProductsDto});
+      this.productDetailsPageDataDto});
 
   Data.fromJson(Map<String, dynamic> json) {
     pageId = json['pageId'];
@@ -78,16 +76,10 @@ class Data {
     storeImage = json['storeImage'];
     isAddToFavoraite = json['isAddToFavoraite'];
     rate = json['rate'];
-    if (json['storePageTypesDto'] != null) {
-      storePageTypesDto = <StorePageTypesDto>[];
-      json['storePageTypesDto'].forEach((v) {
-        storePageTypesDto!.add(StorePageTypesDto.fromJson(v));
-      });
-    }
-    if (json['storePageProductsDto'] != null) {
-      storePageProductsDto = <StorePageProductsDto>[];
-      json['storePageProductsDto'].forEach((v) {
-        storePageProductsDto!.add(StorePageProductsDto.fromJson(v));
+    if (json['productDetailsPageDataDto'] != null) {
+      productDetailsPageDataDto = <ProductDetailsPageDataDto>[];
+      json['productDetailsPageDataDto'].forEach((v) {
+        productDetailsPageDataDto!.add(ProductDetailsPageDataDto.fromJson(v));
       });
     }
   }
@@ -101,62 +93,33 @@ class Data {
     data['storeImage'] = storeImage;
     data['isAddToFavoraite'] = isAddToFavoraite;
     data['rate'] = rate;
-    if (storePageTypesDto != null) {
-      data['storePageTypesDto'] =
-          storePageTypesDto!.map((v) => v.toJson()).toList();
-    }
-    if (storePageProductsDto != null) {
-      data['storePageProductsDto'] =
-          storePageProductsDto!.map((v) => v.toJson()).toList();
+    if (productDetailsPageDataDto != null) {
+      data['productDetailsPageDataDto'] =
+          productDetailsPageDataDto!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class StorePageTypesDto {
-  int? storeTypeId;
-  String? storeTypeName;
-  String? storeTypeImage;
-
-  StorePageTypesDto(
-      {this.storeTypeId, this.storeTypeName, this.storeTypeImage});
-
-  StorePageTypesDto.fromJson(Map<String, dynamic> json) {
-    storeTypeId = json['storeTypeId'];
-    storeTypeName = json['storeTypeName'];
-    storeTypeImage = json['storeTypeImage'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['storeTypeId'] = storeTypeId;
-    data['storeTypeName'] = storeTypeName;
-    data['storeTypeImage'] = storeTypeImage;
-    return data;
-  }
-}
-
-class StorePageProductsDto {
-  String? productId;
+class ProductDetailsPageDataDto {
+  int? productId;
   String? productName;
   int? productPrice;
   String? productImage;
   String? productRate;
   String? productQuantity;
   bool? isAddToFavoraite;
-  int? storeTypeId;
 
-  StorePageProductsDto(
+  ProductDetailsPageDataDto(
       {this.productId,
       this.productName,
       this.productPrice,
       this.productImage,
       this.productRate,
       this.productQuantity,
-      this.isAddToFavoraite,
-      this.storeTypeId});
+      this.isAddToFavoraite});
 
-  StorePageProductsDto.fromJson(Map<String, dynamic> json) {
+  ProductDetailsPageDataDto.fromJson(Map<String, dynamic> json) {
     productId = json['productId'];
     productName = json['productName'];
     productPrice = json['productPrice'];
@@ -164,7 +127,6 @@ class StorePageProductsDto {
     productRate = json['productRate'];
     productQuantity = json['productQuantity'];
     isAddToFavoraite = json['isAddToFavoraite'];
-    storeTypeId = json['storeTypeId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -176,7 +138,6 @@ class StorePageProductsDto {
     data['productRate'] = productRate;
     data['productQuantity'] = productQuantity;
     data['isAddToFavoraite'] = isAddToFavoraite;
-    data['storeTypeId'] = storeTypeId;
     return data;
   }
 }

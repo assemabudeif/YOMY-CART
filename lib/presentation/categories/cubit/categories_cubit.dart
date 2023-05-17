@@ -30,7 +30,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   getProductCategory() async {
     emit(GetProductCategoryPageLoadingState());
     ProductCategoryPageModel model =
-        await Repository.instance.productCaegoryRepo().getProductCategory();
+        await Repository.instance.productCategoryRepo().getProductCategory();
     if (model is ProductCategoryPageSuccessModel) {
       productCategoryPageSuccessModel = model;
       emit(GetProductCategoryPageSuccessState());

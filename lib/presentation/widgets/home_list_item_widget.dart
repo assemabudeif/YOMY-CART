@@ -32,11 +32,12 @@ class HomeListItemWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              image,
-              height: MediaQuery.of(context).size.height * 0.12,
-              width: MediaQuery.of(context).size.width * 0.45,
-              fit: BoxFit.fitHeight,
+            Expanded(
+              child: Image.network(
+                image,
+                width: MediaQuery.of(context).size.width * 0.45,
+                fit: BoxFit.fitWidth,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(AppPadding.p8),
