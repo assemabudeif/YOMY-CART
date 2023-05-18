@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yomy_cart/models/home_page/home_page_api_error400_model.dart';
 
+import '../../../models/Store_page/store_page_error400_model.dart';
+import '../../../models/Store_page/store_page_error_model.dart';
+import '../../../models/Store_page/store_page_success_model.dart';
 import '../../../models/home_page/home_page_api_error_model.dart';
 import '../../../models/home_page/home_page_api_success_model.dart';
 import '../../resources/routes_manager.dart';
@@ -121,6 +124,38 @@ class HomeCubit extends Cubit<HomeState> {
       log(response.detail.toString());
       homePageApiError404Model = response;
       emit(HomeGetHomePageDataError404State(response));
+    }
+  }
+
+  late StorePageSuccessModel storePageSuccessModel;
+
+  late StorePageError400Model storePageError400Model;
+  late StorePageErrorModel storePageErrorModel;
+
+  Future<void> getShopPageButtonPressed(BuildContext context, int id) async {
+    emit(GetShopPageLoadingState());
+    final response =
+        await Repository.instance.storePageRepository().getStoreDetails(id);
+
+    if (response is StorePageSuccessModel) {
+      log(response.toString());
+      storePageSuccessModel = response;
+
+      emit(GetShopPageSuccessState(response));
+    } else if (response is StorePageErrorModel) {
+      log('Error: ${response.messages}');
+      if (response.messages![0] == "Authentication Failed.") {
+        log('Error: ${response.messages}');
+
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.loginRoute, (route) => false);
+      }
+      storePageErrorModel = response;
+      emit(GetShopPageErrorState(response));
+    } else if (response is StorePageError400Model) {
+      log(response.detail.toString());
+      storePageError400Model = response;
+      emit(GetShopPageError400State(response));
     }
   }
 }

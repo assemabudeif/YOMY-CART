@@ -48,12 +48,12 @@ class Routes {
   static const about = '/about';
   static const policy = '/policy';
   static const contactUs = '/contact_us';
- // static const shop = '/shop';
+  // static const shop = '/shop';
   static const shopAbout = '/shop_about';
   static const branches = '/branches';
   static const reviews = '/reviews';
   static const search = '/search';
-  static const product = '/product';
+  // static const product = '/product';
   static const wishList = '/wish_list';
   static const myOrders = '/my_orders';
   static const cart = '/cart';
@@ -107,7 +107,7 @@ class AppRoutes {
             builder: (context) => const PrivacyPolicyScreen());
       case Routes.contactUs:
         return MaterialPageRoute(builder: (context) => ContactusScreen());
-    //  case Routes.shop:
+      //  case Routes.shop:
       //  return MaterialPageRoute(builder: (context) => ShopScreen());
       case Routes.shopAbout:
         return MaterialPageRoute(builder: (context) => ShopAboutScreen());
@@ -117,8 +117,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (context) => ReviewsScreen());
       case Routes.search:
         return MaterialPageRoute(builder: (context) => SearchScreen());
-      case Routes.product:
-        return MaterialPageRoute(builder: (context) => ProductScreen());
+      // case Routes.product:
+      //   return MaterialPageRoute(builder: (context) => ProductScreen());
       case Routes.wishList:
         return MaterialPageRoute(builder: (context) => WishListScreen());
       case Routes.myOrders:

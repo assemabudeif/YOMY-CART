@@ -11,26 +11,28 @@ class ShopItemVerticalWidget extends StatelessWidget {
   final bool inCart;
   final bool isFavorite;
   final String name;
-  final String price;
+  final int price;
+  final String quantity;
   final String image;
   final double rate;
+  final Function() onTap;
 
-  const ShopItemVerticalWidget(
-      {Key? key,
-      required this.inCart,
-      required this.isFavorite,
-      required this.name,
-      required this.price,
-      required this.image,
-      required this.rate})
-      : super(key: key);
+  const ShopItemVerticalWidget({
+    Key? key,
+    required this.inCart,
+    required this.isFavorite,
+    required this.name,
+    required this.price,
+    required this.quantity,
+    required this.image,
+    required this.rate,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, Routes.product);
-      },
+      onTap: onTap,
       child: SizedBox(
         width: AppSize.s163,
         child: Card(
@@ -69,7 +71,7 @@ class ShopItemVerticalWidget extends StatelessWidget {
 
                     //price
                     Text(
-                      'Price : $price',
+                      'Price : $price EGP / $quantity',
                       style: const TextStyle(
                         color: ColorManager.greyDark,
                         fontSize: AppSize.s10,

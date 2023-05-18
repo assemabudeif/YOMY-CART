@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yomy_cart/models/product_details/product_details_success_model.dart';
 import '/presentation/product/cubit/product_cubit.dart';
 import '/presentation/product/cubit/product_state.dart';
 import '/presentation/resources/assets_manager.dart';
@@ -14,7 +15,9 @@ import '/presentation/widgets/produt_similar_iteem_widget.dart';
 import '/presentation/widgets/white_app_bar_widget.dart';
 
 class ProductScreen extends StatelessWidget {
-  const ProductScreen({Key? key}) : super(key: key);
+  final ProductDetailsSuccessModel model;
+
+  const ProductScreen({Key? key, required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +54,8 @@ class ProductScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(AppSize.s10),
                           ),
                           clipBehavior: Clip.antiAliasWithSaveLayer,
-                          child: Image.asset(
-                            ImageAssets.lanshonOffer,
+                          child: Image.network(
+                            '',
                             height: AppSize.s168,
                             width: double.infinity,
                             fit: BoxFit.cover,

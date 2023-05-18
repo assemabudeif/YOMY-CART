@@ -1,6 +1,6 @@
-import 'package:yomy_cart/models/Store_page/store_page_model.dart';
+import 'product_details_search_model.dart';
 
-class StorePageError400Model extends StorePageModel {
+class ProductDetailsSearchError400Model extends ProductDetailsSearchModel {
   String? type;
   String? title;
   int? status;
@@ -11,7 +11,7 @@ class StorePageError400Model extends StorePageModel {
   String? additionalProp2;
   String? additionalProp3;
 
-  StorePageError400Model(
+  ProductDetailsSearchError400Model(
       {this.type,
       this.title,
       this.status,
@@ -22,17 +22,32 @@ class StorePageError400Model extends StorePageModel {
       this.additionalProp2,
       this.additionalProp3});
 
-  StorePageError400Model.fromJson(Map<String, dynamic> json) {
+  ProductDetailsSearchError400Model.fromJson(Map<String, dynamic> json) {
     type = json['type'];
     title = json['title'];
     status = json['status'];
     detail = json['detail'];
     instance = json['instance'];
-    errors =
-        json['errors'] != null ? new Errors.fromJson(json['errors']) : null;
+    errors = json['errors'] != null ? Errors.fromJson(json['errors']) : null;
     additionalProp1 = json['additionalProp1'];
     additionalProp2 = json['additionalProp2'];
     additionalProp3 = json['additionalProp3'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['type'] = type;
+    data['title'] = title;
+    data['status'] = status;
+    data['detail'] = detail;
+    data['instance'] = instance;
+    if (errors != null) {
+      data['errors'] = errors!.toJson();
+    }
+    data['additionalProp1'] = additionalProp1;
+    data['additionalProp2'] = additionalProp2;
+    data['additionalProp3'] = additionalProp3;
+    return data;
   }
 }
 
@@ -47,5 +62,13 @@ class Errors {
     additionalProp1 = json['additionalProp1'].cast<String>();
     additionalProp2 = json['additionalProp2'].cast<String>();
     additionalProp3 = json['additionalProp3'].cast<String>();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['additionalProp1'] = additionalProp1;
+    data['additionalProp2'] = additionalProp2;
+    data['additionalProp3'] = additionalProp3;
+    return data;
   }
 }

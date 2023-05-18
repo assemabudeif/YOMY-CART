@@ -8,6 +8,7 @@ import '../cubit/home_cubit.dart';
 
 class HomeScreenBodyWidget extends StatelessWidget {
   const HomeScreenBodyWidget({super.key, required this.cubit});
+
   final HomeCubit cubit;
 
   @override
@@ -57,6 +58,13 @@ class HomeScreenBodyWidget extends StatelessWidget {
                           .homePageDetailDto![index].sliderItemLocation!,
                       rate: cubit.homePageApiModel!.data![bodyIndex]
                           .homePageDetailDto![index].rate!,
+                      onTap: () {
+                        cubit.getShopPageButtonPressed(
+                          context,
+                          cubit.homePageApiModel!.data![bodyIndex]
+                              .homePageDetailDto![index].sliderItemId!,
+                        );
+                      },
                     );
                   },
                   separatorBuilder: (context, index) => SizedBox(

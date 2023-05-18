@@ -260,7 +260,6 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   );
 
   late StorePageSuccessModel storePageSuccessModel;
-
   late StorePageError400Model storePageError400Model;
   late StorePageErrorModel storePageErrorModel;
 
@@ -272,7 +271,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
         await Repository.instance.storePageRepository().getStoreDetails(id);
 
     if (response is StorePageSuccessModel) {
-      log(response.data!.toString());
+      log(response.toString());
       storePageSuccessModel = response;
 
       emit(GetShopPageSuccessState(response));

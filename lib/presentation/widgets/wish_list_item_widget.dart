@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '/presentation/resources/colors_manager.dart';
 import '/presentation/resources/font_manager.dart';
-import '/presentation/resources/routes_manager.dart';
 import '/presentation/resources/strings_manager.dart';
 import '/presentation/resources/values_manager.dart';
 import '/presentation/widgets/default_button_widget.dart';
@@ -14,20 +13,22 @@ class WishListItemWidget extends StatelessWidget {
   final String image;
   final double rate;
 
-  const WishListItemWidget(
-      {Key? key,
-      required this.inCart,
-      required this.name,
-      required this.price,
-      required this.image,
-      required this.rate})
-      : super(key: key);
+  const WishListItemWidget({
+    Key? key,
+    required this.inCart,
+    required this.name,
+    required this.price,
+    required this.image,
+    required this.rate,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, Routes.product);
+        /// TODO
+
+        // Navigator.pushNamed(context, Routes.product);
       },
       child: SizedBox(
         width: AppSize.s163,

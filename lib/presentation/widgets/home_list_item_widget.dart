@@ -10,91 +10,96 @@ class HomeListItemWidget extends StatelessWidget {
       required this.image,
       required this.rate,
       required this.address,
-      required this.name})
+      required this.name,
+      required this.onTap})
       : super(key: key);
   final String image;
   final num rate;
   final String address;
   final String name;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.45,
-      height: MediaQuery.of(context).size.height * 0.5,
-      child: Card(
-        elevation: AppSize.s10,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(AppSize.s8),
+    return InkWell(
+      onTap: onTap,
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.45,
+        height: MediaQuery.of(context).size.height * 0.5,
+        child: Card(
+          elevation: AppSize.s10,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(AppSize.s8),
+            ),
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Image.network(
-                image,
-                width: MediaQuery.of(context).size.width * 0.45,
-                fit: BoxFit.fitWidth,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Image.network(
+                  image,
+                  width: MediaQuery.of(context).size.width * 0.45,
+                  fit: BoxFit.fitWidth,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(AppPadding.p8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  Row(
-                    children: [
-                      RatingBar.builder(
-                        initialRating: 1,
-                        minRating: 1,
-                        itemSize: AppSize.s12,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: rate.toInt(),
-                        itemPadding: EdgeInsets.zero,
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.star,
-                          color: ColorManager.accent,
+              Padding(
+                padding: const EdgeInsets.all(AppPadding.p8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    Row(
+                      children: [
+                        RatingBar.builder(
+                          initialRating: 1,
+                          minRating: 1,
+                          itemSize: AppSize.s12,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: rate.toInt(),
+                          itemPadding: EdgeInsets.zero,
+                          itemBuilder: (context, _) => const Icon(
+                            Icons.star,
+                            color: ColorManager.accent,
+                          ),
+                          onRatingUpdate: (rating) {},
                         ),
-                        onRatingUpdate: (rating) {},
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.02,
-                      ),
-                      Text(
-                        '1.5(402)',
-                        style: Theme.of(context).textTheme.caption,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.01,
-                  ),
-                  Row(
-                    children: [
-                      Image.asset(
-                        ImageAssets.mapIcon,
-                        height: MediaQuery.of(context).size.height * 0.02,
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.02,
-                      ),
-                      Text(
-                        address,
-                        style: Theme.of(context).textTheme.caption,
-                      ),
-                    ],
-                  ),
-                ],
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.02,
+                        ),
+                        Text(
+                          '1.5(402)',
+                          style: Theme.of(context).textTheme.caption,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.01,
+                    ),
+                    Row(
+                      children: [
+                        Image.asset(
+                          ImageAssets.mapIcon,
+                          height: MediaQuery.of(context).size.height * 0.02,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.02,
+                        ),
+                        Text(
+                          address,
+                          style: Theme.of(context).textTheme.caption,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

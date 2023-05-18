@@ -15,13 +15,8 @@ class ProductDetailsPageAPI {
   Future<ProductDetailsModel> fetchProductDetailsPage(
       {required int productId}) async {
     try {
-      Response response = await DioLogger.getDio().post(
-        Endpoints.productDetailsPageApi,
-        data: {
-          "pageId": 7,
-          "productId": productId,
-          "langId": 1,
-        },
+      Response response = await DioLogger.getDio().get(
+        '${Endpoints.productDetailsPageApi}$productId',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -31,8 +26,8 @@ class ProductDetailsPageAPI {
       );
       if (response.statusCode == 200) {
         return ProductDetailsSuccessModel.fromJson(response.data);
-      } else if (response!.statusCode == 400) {
-        return ProductDetailsError400Model.fromJson(response!.data);
+      } else if (response.statusCode == 400) {
+        return ProductDetailsError400Model.fromJson(response.data);
       } else {
         return ProductDetailsErrorModel.fromJson(response.data);
       }
