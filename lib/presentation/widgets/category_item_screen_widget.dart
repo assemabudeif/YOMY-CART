@@ -30,13 +30,14 @@ class CategoryItemScreenWidget extends StatelessWidget {
       child: BlocConsumer<CategoriesCubit, CategoriesState>(
         listener: (context, state) {
           if (state is GetShopPageSuccessState) {
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => ShopScreen(
-            //               storePageSuccessDataModel:
-            //                   state.storePageSuccessModel.data![0],
-            //             )));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ShopScreen(
+                  storePageSuccessDataModel: state.storePageSuccessModel,
+                ),
+              ),
+            );
           }
         },
         builder: (context, state) {
@@ -44,8 +45,9 @@ class CategoryItemScreenWidget extends StatelessWidget {
               null) {
             return Scaffold(
               appBar: AppBar(
+                ///todo
                 title: Text(
-                  model.appBarTitle,
+                  cubit.productCategoryPageSuccessModel!.data![0].categoryName!,
                   style: const TextStyle(
                     letterSpacing: AppSize.none,
                     fontFamily: FontConstants.fontFamily,
@@ -72,6 +74,7 @@ class CategoryItemScreenWidget extends StatelessWidget {
                             height: AppSize.s12,
                           ),
                           // categories Images
+                          ///todo
                           Padding(
                             padding:
                                 const EdgeInsets.only(left: AppPadding.p12),

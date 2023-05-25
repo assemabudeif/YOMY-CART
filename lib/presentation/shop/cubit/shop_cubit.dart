@@ -1,6 +1,13 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../models/product_details/product_details_error_400_model.dart';
+import '../../../models/product_details/product_details_error_model.dart';
+import '../../../models/product_details/product_details_success_model.dart';
+import '../../../repository/repo.dart';
+import '../../resources/routes_manager.dart';
 import '/models/shop_category_model.dart';
 import '/presentation/resources/assets_manager.dart';
 import '/presentation/shop/cubit/shop_state.dart';
@@ -111,5 +118,38 @@ class ShopCubit extends Cubit<ShopState> {
   void changePriceIndicator(value) {
     priceValues = value;
     emit(ChangePriceIndicatorState());
+  }
+
+  late ProductDetailsSuccessModel productDetailsSuccessModel;
+
+  late ProductDetailsError400Model productDetailsError400Model;
+  late ProductDetailsErrorModel productDetailsErrorModel;
+
+  Future<void> getProductDetailsButtonPressed(
+      BuildContext context, int id) async {
+    emit(GetProductDetailsLoadingState());
+    final response =
+        await Repository.instance.productPageRepository().getProductDetails(id);
+
+    if (response is ProductDetailsSuccessModel) {
+      log(response.toString());
+      productDetailsSuccessModel = response;
+
+      emit(GetProductDetailsSuccessState(response));
+    } else if (response is ProductDetailsErrorModel) {
+      log('Error: ${response.toString()}');
+      if (response.messages![0] == "Authentication Failed.") {
+        log('Error: ${response.messages}');
+
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.loginRoute, (route) => false);
+      }
+      productDetailsErrorModel = response;
+      emit(GetProductDetailsErrorState(response));
+    } else if (response is ProductDetailsError400Model) {
+      log(response.detail.toString());
+      productDetailsError400Model = response;
+      emit(GetProductDetailsError400State(response));
+    }
   }
 }

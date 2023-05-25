@@ -1,54 +1,6 @@
-import 'product_details_model.dart';
+import 'package:yomy_cart/models/product_details/product_details_model.dart';
 
 class ProductDetailsSuccessModel extends ProductDetailsModel {
-  List<Data>? data;
-  int? currentPage;
-  int? totalPages;
-  int? totalCount;
-  int? pageSize;
-  bool? hasPreviousPage;
-  bool? hasNextPage;
-
-  ProductDetailsSuccessModel(
-      {this.data,
-      this.currentPage,
-      this.totalPages,
-      this.totalCount,
-      this.pageSize,
-      this.hasPreviousPage,
-      this.hasNextPage});
-
-  ProductDetailsSuccessModel.fromJson(Map<String, dynamic> json) {
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
-      });
-    }
-    currentPage = json['currentPage'];
-    totalPages = json['totalPages'];
-    totalCount = json['totalCount'];
-    pageSize = json['pageSize'];
-    hasPreviousPage = json['hasPreviousPage'];
-    hasNextPage = json['hasNextPage'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
-    }
-    data['currentPage'] = currentPage;
-    data['totalPages'] = totalPages;
-    data['totalCount'] = totalCount;
-    data['pageSize'] = pageSize;
-    data['hasPreviousPage'] = hasPreviousPage;
-    data['hasNextPage'] = hasNextPage;
-    return data;
-  }
-}
-
-class Data {
   int? pageId;
   String? pageName;
   int? storeId;
@@ -58,7 +10,7 @@ class Data {
   int? rate;
   List<ProductDetailsPageDataDto>? productDetailsPageDataDto;
 
-  Data(
+  ProductDetailsSuccessModel(
       {this.pageId,
       this.pageName,
       this.storeId,
@@ -68,7 +20,7 @@ class Data {
       this.rate,
       this.productDetailsPageDataDto});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  ProductDetailsSuccessModel.fromJson(Map<String, dynamic> json) {
     pageId = json['pageId'];
     pageName = json['pageName'];
     storeId = json['storeId'];
@@ -79,25 +31,10 @@ class Data {
     if (json['productDetailsPageDataDto'] != null) {
       productDetailsPageDataDto = <ProductDetailsPageDataDto>[];
       json['productDetailsPageDataDto'].forEach((v) {
-        productDetailsPageDataDto!.add(ProductDetailsPageDataDto.fromJson(v));
+        productDetailsPageDataDto!
+            .add(new ProductDetailsPageDataDto.fromJson(v));
       });
     }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['pageId'] = pageId;
-    data['pageName'] = pageName;
-    data['storeId'] = storeId;
-    data['storeName'] = storeName;
-    data['storeImage'] = storeImage;
-    data['isAddToFavoraite'] = isAddToFavoraite;
-    data['rate'] = rate;
-    if (productDetailsPageDataDto != null) {
-      data['productDetailsPageDataDto'] =
-          productDetailsPageDataDto!.map((v) => v.toJson()).toList();
-    }
-    return data;
   }
 }
 
@@ -127,17 +64,5 @@ class ProductDetailsPageDataDto {
     productRate = json['productRate'];
     productQuantity = json['productQuantity'];
     isAddToFavoraite = json['isAddToFavoraite'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['productId'] = productId;
-    data['productName'] = productName;
-    data['productPrice'] = productPrice;
-    data['productImage'] = productImage;
-    data['productRate'] = productRate;
-    data['productQuantity'] = productQuantity;
-    data['isAddToFavoraite'] = isAddToFavoraite;
-    return data;
   }
 }

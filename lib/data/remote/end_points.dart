@@ -3,7 +3,8 @@ class Endpoints {
   static const String tokens = '$baseUrl/api/tokens';
   static const String register = '$baseUrl/api/users';
   static const String homePageApi = '$baseUrl/api/v1/homepage/search';
-  static const String storePageApi = '$baseUrl/api/v1/storepage/search';
+  static const String storePageApi = '$baseUrl/api/v1/storepage/';
+  static const String storePageSearchApi = '$baseUrl/api/v1/storepage/search';
   static const String productPageApi = '$baseUrl/api/v1/productpage/search';
   static const String storeOfferPageApi =
       '$baseUrl/api/v1/storeofferpage/search';
@@ -11,5 +12,7 @@ class Endpoints {
       '$baseUrl/api/v1/productcategorypage/search';
   static const String brandPageApi = '$baseUrl/api/v1/brandpage/search';
   static const String productDetailsPageApi =
+      '$baseUrl/api/v1/productdetailspage/';
+  static const String productDetailsSearchPageApi =
       '$baseUrl/api/v1/productdetailspage/search';
 }

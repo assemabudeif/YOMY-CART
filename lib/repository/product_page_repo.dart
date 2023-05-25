@@ -1,5 +1,6 @@
+import 'package:yomy_cart/models/product_details/product_details_model.dart';
+
 import '../data/remote/api_services.dart';
-import '../models/Store_page/store_page_model.dart';
 
 class ProductPageRepository {
   static final instance = ProductPageRepository._internal();
@@ -8,8 +9,8 @@ class ProductPageRepository {
 
   factory ProductPageRepository() => instance;
 
-  Future<StorePageModel> getProductDetails(int productId) async =>
+  Future<ProductDetailsModel> getProductDetails(int productId) async =>
       await ApiServices.instance
-          .productPageApi()
-          .fetchProductPage(productId: productId);
+          .productDetailsPageApi()
+          .fetchProductDetailsPage(productId: productId);
 }

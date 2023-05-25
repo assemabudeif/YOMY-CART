@@ -28,8 +28,29 @@ class HomeGetHomePageDataErrorState extends HomeState {
 
   HomeGetHomePageDataErrorState(this.homePageApiErrorModel);
 }
+
 class HomeGetHomePageDataError404State extends HomeState {
   final HomePageApiError400Model homePageApiError404Model;
 
   HomeGetHomePageDataError404State(this.homePageApiError404Model);
+}
+
+class GetShopPageLoadingState extends HomeState {}
+
+class GetShopPageSuccessState extends HomeState {
+  final StorePageSuccessModel storePageSuccessModel;
+
+  GetShopPageSuccessState(this.storePageSuccessModel);
+}
+
+class GetShopPageErrorState extends HomeState {
+  final StorePageErrorModel storePageErrorModel;
+
+  GetShopPageErrorState(this.storePageErrorModel);
+}
+
+class GetShopPageError400State extends HomeState {
+  final StorePageError400Model storePageError400Model;
+
+  GetShopPageError400State(this.storePageError400Model);
 }

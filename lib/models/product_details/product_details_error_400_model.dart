@@ -33,22 +33,6 @@ class ProductDetailsError400Model extends ProductDetailsModel {
     additionalProp2 = json['additionalProp2'];
     additionalProp3 = json['additionalProp3'];
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['type'] = type;
-    data['title'] = title;
-    data['status'] = status;
-    data['detail'] = detail;
-    data['instance'] = instance;
-    if (errors != null) {
-      data['errors'] = errors!.toJson();
-    }
-    data['additionalProp1'] = additionalProp1;
-    data['additionalProp2'] = additionalProp2;
-    data['additionalProp3'] = additionalProp3;
-    return data;
-  }
 }
 
 class Errors {
@@ -62,13 +46,5 @@ class Errors {
     additionalProp1 = json['additionalProp1'].cast<String>();
     additionalProp2 = json['additionalProp2'].cast<String>();
     additionalProp3 = json['additionalProp3'].cast<String>();
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['additionalProp1'] = additionalProp1;
-    data['additionalProp2'] = additionalProp2;
-    data['additionalProp3'] = additionalProp3;
-    return data;
   }
 }

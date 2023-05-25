@@ -11,26 +11,28 @@ class ShopItemHorizontalWidget extends StatelessWidget {
   final bool inCart;
   final bool isFavorite;
   final String name;
-  final String price;
+  final int price;
+  final String quantity;
   final String image;
   final double rate;
+  final Function() onTap;
 
-  const ShopItemHorizontalWidget(
-      {Key? key,
-      required this.inCart,
-      required this.isFavorite,
-      required this.name,
-      required this.price,
-      required this.rate,
-      required this.image})
-      : super(key: key);
+  const ShopItemHorizontalWidget({
+    Key? key,
+    required this.inCart,
+    required this.isFavorite,
+    required this.name,
+    required this.price,
+    required this.rate,
+    required this.quantity,
+    required this.image,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, Routes.product);
-      },
+      onTap: onTap,
       child: SizedBox(
         width: double.infinity,
         child: Card(
@@ -47,7 +49,7 @@ class ShopItemHorizontalWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 // product image
-                Image.asset(
+                Image.network(
                   image,
                   height: AppSize.s82,
                   width: AppSize.s143,
@@ -77,7 +79,7 @@ class ShopItemHorizontalWidget extends StatelessWidget {
 
                       //price
                       Text(
-                        'Price : $price',
+                        'Price : $price EGP / $quantity',
                         style: const TextStyle(
                           color: ColorManager.greyDark,
                           fontSize: AppSize.s10,

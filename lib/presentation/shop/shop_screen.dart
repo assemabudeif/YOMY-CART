@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yomy_cart/presentation/product/product_screen.dart';
 import '../../models/Store_page/store_page_success_model.dart';
 import '/presentation/resources/assets_manager.dart';
 import '/presentation/resources/colors_manager.dart';
@@ -17,7 +18,7 @@ import '/presentation/widgets/shop_item_vertical_widget.dart';
 import '/presentation/widgets/shop_search_bar_widget.dart';
 
 class ShopScreen extends StatelessWidget {
-  final Data storePageSuccessDataModel;
+  final StorePageSuccessModel storePageSuccessDataModel;
 
   const ShopScreen({
     Key? key,
@@ -29,7 +30,18 @@ class ShopScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ShopCubit(),
       child: BlocConsumer<ShopCubit, ShopState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is GetProductDetailsSuccessState) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductScreen(
+                  model: state.productDetailsSuccessModel,
+                ),
+              ),
+            );
+          }
+        },
         builder: (context, state) {
           var cubit = ShopCubit.get(context);
           return Scaffold(
@@ -280,6 +292,7 @@ class ShopScreen extends StatelessWidget {
                     ),
                   ),
 
+                  ///todo
                   //product items
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -288,9 +301,12 @@ class ShopScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        Row(
+                        /* Row(
                           children: [
                             ShopItemVerticalWidget(
+                              onTap: (){
+
+                              },
                               inCart: false,
                               isFavorite: false,
                               name: 'Lasnshon Halwany',
@@ -300,6 +316,9 @@ class ShopScreen extends StatelessWidget {
                             ),
                             const Spacer(),
                             ShopItemVerticalWidget(
+                              onTap: (){
+
+                              },
                               inCart: true,
                               isFavorite: true,
                               name: 'Lasnshon Halwany',
@@ -311,25 +330,46 @@ class ShopScreen extends StatelessWidget {
                         ),
                         const SizedBox(
                           height: AppSize.s10,
-                        ),
-                        ShopItemHorizontalWidget(
-                          inCart: false,
-                          isFavorite: false,
-                          name: 'Lasnshon Halwany',
-                          price: '20 EGP / 1 KG',
-                          image: ImageAssets.lanshonOffer,
-                          rate: 4,
-                        ),
-                        const SizedBox(
-                          height: AppSize.s10,
-                        ),
-                        ShopItemHorizontalWidget(
-                          inCart: true,
-                          isFavorite: true,
-                          name: 'Lasnshon Halwany',
-                          price: '20 EGP / 1 KG',
-                          image: ImageAssets.lanshonOffer,
-                          rate: 4,
+                        ),*/
+                        ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) =>
+                              ShopItemHorizontalWidget(
+                                  onTap: () {
+                                    cubit.getProductDetailsButtonPressed(
+                                      context,
+                                      storePageSuccessDataModel
+                                          .storePageProductsDto![index]
+                                          .productId! as int,
+                                    );
+                                  },
+
+                                  ///todo in cart
+                                  inCart: false,
+                                  isFavorite: storePageSuccessDataModel
+                                      .storePageProductsDto![index]
+                                      .isAddToFavoraite!,
+                                  name: storePageSuccessDataModel
+                                      .storePageProductsDto![index]
+                                      .productName!,
+                                  price: storePageSuccessDataModel
+                                      .storePageProductsDto![index]
+                                      .productPrice!,
+                                  image: storePageSuccessDataModel
+                                      .storePageProductsDto![index]
+                                      .productImage!,
+                                  quantity: storePageSuccessDataModel
+                                      .storePageProductsDto![index]
+                                      .productQuantity!,
+                                  rate: 4
+                                  //  storePageSuccessDataModel.storePageProductsDto![index].productRate!,
+                                  ),
+                          separatorBuilder: (context, index) => const SizedBox(
+                            height: AppSize.s10,
+                          ),
+                          itemCount: storePageSuccessDataModel
+                              .storePageProductsDto!.length,
                         ),
                       ],
                     ),

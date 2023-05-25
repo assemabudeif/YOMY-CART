@@ -14,13 +14,8 @@ class StorePageApi {
 
   Future<StorePageModel> getStoreDetails({required int storeId}) async {
     try {
-      Response response = await DioLogger.getDio().post(
-        Endpoints.storePageApi,
-        data: {
-          "pageId": 1,
-          "storeId": storeId,
-          "langId": 1,
-        },
+      Response response = await DioLogger.getDio().get(
+        '${Endpoints.storePageApi}$storeId',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
