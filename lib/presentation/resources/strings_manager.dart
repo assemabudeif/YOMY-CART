@@ -133,6 +133,8 @@ of the printing and typesetting
   static const String update = 'Update';
   static const String editPassword = 'Edit Password';
   static const String name = 'Name';
+  static const String firstName = 'First Name';
+  static const String lastName = 'last Name';
   static const String phone = 'Mobile Number';
 
   //Change Password
