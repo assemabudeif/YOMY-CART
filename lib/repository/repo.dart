@@ -7,6 +7,7 @@ import 'package:yomy_cart/repository/strore_page_repo.dart';
 
 import 'Home_repo.dart';
 import 'auth_repo.dart';
+import 'update_personal_account_repo.dart';
 
 class Repository {
   static final instance = Repository._internal();
@@ -33,4 +34,7 @@ class Repository {
 
   PersonalAccountRepository personalAccountRepository() =>
       PersonalAccountRepository.instance;
+
+  UpdatePersonalAccountRepository updatePersonalAccountRepository() =>
+      UpdatePersonalAccountRepository.instance;
 }

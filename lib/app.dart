@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yomy_cart/presentation/account/cubit/account_cubit.dart';
 import 'package:yomy_cart/presentation/categories/cubit/categories_cubit.dart';
 
 import 'presentation/auth/login/cubit/login_cubit.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => LoginCubit()),
         BlocProvider(create: (BuildContext context) => RegistrationCubit()),
         BlocProvider(create: (BuildContext context) => CategoriesCubit()),
+        BlocProvider(create: (BuildContext context) => AccountCubit()),
       ],
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {

@@ -10,6 +10,7 @@ import 'product_details_page_api.dart';
 import 'product_page_api.dart';
 import 'store_offer_page_api.dart';
 import 'store_page_search_api.dart';
+import 'update_persone_account_api.dart';
 
 class ApiServices {
   ApiServices._instance();
@@ -40,4 +41,7 @@ class ApiServices {
       ProductDetailsSearchPageAPI.instance;
 
   PersonalAccountApi personalAccountApi() => PersonalAccountApi.instance;
+
+  UpdatePersonalAccountApi updatePersonalAccountApi() =>
+      UpdatePersonalAccountApi.instance;
 }

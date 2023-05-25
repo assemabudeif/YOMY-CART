@@ -69,10 +69,18 @@ class AccountScreen extends StatelessWidget {
                                     children: [
                                       InkWell(
                                         onTap: () {
-                                          context.push(AccountInformationScreen(
-                                            model: homeCubit
-                                                .personalAccountSuccessModel!,
-                                          ));
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      AccountInformationScreen(
+                                                        model: homeCubit
+                                                            .personalAccountSuccessModel!,
+                                                      )));
+                                          // context.push(AccountInformationScreen(
+                                          //   model: homeCubit
+                                          //       .personalAccountSuccessModel!,
+                                          // ));
                                         },
                                         child: SvgPicture.asset(
                                           ImageAssets.editIcon,
@@ -129,7 +137,10 @@ class AccountScreen extends StatelessWidget {
                                     : const Center(
                                         child: CircularProgressIndicator(),
                                       ),
-                        DriverWidget(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: DriverWidget(),
+                        ),
                         //My Account
                         AccountBannerWidget(
                           text: StringsManager.myAccount,
