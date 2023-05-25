@@ -57,6 +57,7 @@ class CategoriesScreen extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) => CategoryItemScreenWidget(
+                              title: items[index],
                               model: models[index],
                             ),
                           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../models/personal_account/personal_account_success_model.dart';
 import '/presentation/resources/assets_manager.dart';
 import '/presentation/resources/colors_manager.dart';
 import '/presentation/resources/routes_manager.dart';
@@ -16,19 +17,23 @@ var passwordController = TextEditingController();
 var formKey = GlobalKey<FormState>();
 
 class AccountInformationScreen extends StatelessWidget {
-  const AccountInformationScreen({Key? key}) : super(key: key);
+  final PersonalAccountSuccessModel model;
+
+  const AccountInformationScreen({Key? key, required this.model})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ///todo password
     passwordController.text = '123';
-    nameController.text = 'Medhat Mohamed';
-    phoneController.text = '01224344250';
-    emailController.text = 'Medhat@yahoo.com';
+    nameController.text = '${model.firstName!} ${model.lastName}';
+    phoneController.text = model.phoneNumber ?? '0100000';
+    emailController.text = model.email! ?? 'email@gmail.com';
     return Scaffold(
       appBar: whiteAppBarWidget(
         context: context,
         color: ColorManager.primaryMoreLight,
-        title: 'Account Information',
+        title: StringsManager.accountInformation,
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppPadding.p31),
@@ -41,24 +46,35 @@ class AccountInformationScreen extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.bottomRight,
                   children: [
-                    SvgPicture.asset(
-                      ImageAssets.profileImage,
-                      height: AppSize.s60,
-                      width: AppSize.s60,
-                      fit: BoxFit.cover,
-                    ),
+                    model.imageUrl == null
+                        ? SvgPicture.asset(
+                            ImageAssets.profileImage,
+                            height: AppSize.s60,
+                            width: AppSize.s60,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.network(
+                            model.imageUrl!,
+                            height: AppSize.s60,
+                            width: AppSize.s60,
+                            fit: BoxFit.cover,
+                          ),
                     const Padding(
                       padding: EdgeInsetsDirectional.only(
                         bottom: 1.0,
                         end: 1.0,
                       ),
-                      child: CircleAvatar(
-                        radius: AppSize.s9,
-                        backgroundColor: ColorManager.accent,
-                        child: Icon(
-                          Icons.add,
-                          color: ColorManager.white,
-                          size: 19.0,
+
+                      ///todo camera
+                      child: InkWell(
+                        child: CircleAvatar(
+                          radius: AppSize.s9,
+                          backgroundColor: ColorManager.accent,
+                          child: Icon(
+                            Icons.add,
+                            color: ColorManager.white,
+                            size: 19.0,
+                          ),
                         ),
                       ),
                     ),
@@ -109,7 +125,6 @@ class AccountInformationScreen extends StatelessWidget {
                 onPress: () {
                   Navigator.pushNamed(context, Routes.changePassword);
                 },
-                onTab: () {},
               ),
             ],
           ),

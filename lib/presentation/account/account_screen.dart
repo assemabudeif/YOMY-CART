@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yomy_cart/utilis/helper.dart';
+import '../home/cubit/home_cubit.dart';
 import '/presentation/account/cubit/account_cubit.dart';
 import '/presentation/account/cubit/account_state.dart';
 import '/presentation/resources/assets_manager.dart';
@@ -13,11 +15,14 @@ import '/presentation/widgets/account_item_widget.dart';
 import '/presentation/widgets/driver_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'accountn_iformation_screen.dart';
+
 class AccountScreen extends StatelessWidget {
   const AccountScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var homeCubit = HomeCubit.get(context);
     return BlocProvider(
         create: (context) => AccountCubit(),
         child: BlocConsumer<AccountCubit, AccountState>(
@@ -32,63 +37,99 @@ class AccountScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         //profile data
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const SizedBox(
-                              height: AppSize.s15,
-                            ),
-                            SvgPicture.asset(
-                              ImageAssets.profileImage,
-                              height: 65,
-                              width: 65,
-                              fit: BoxFit.cover,
-                            ),
-                            const SizedBox(
-                              height: AppSize.s7,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, Routes.accountInformation);
-                                  },
-                                  child: SvgPicture.asset(
-                                    ImageAssets.editIcon,
-                                    height: AppSize.s18,
-                                    width: AppSize.s18,
-                                    color: ColorManager.greyDark,
+
+                        homeCubit.personalAccountSuccessModel != null
+                            ? Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const SizedBox(
+                                    height: AppSize.s15,
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: AppSize.s8,
-                                ),
-                                Text(
-                                  'Medhat Mohamed',
-                                  style: TextStyle(
-                                    color: ColorManager.primaryLight,
-                                    fontSize: 17.0,
-                                    fontWeight: FontWeight.bold,
+                                  homeCubit.personalAccountSuccessModel!
+                                              .imageUrl !=
+                                          null
+                                      ? Image.network(
+                                          homeCubit.personalAccountSuccessModel!
+                                              .imageUrl!,
+                                          height: 65,
+                                          width: 65,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : SvgPicture.asset(
+                                          ImageAssets.profileImage,
+                                          height: 65,
+                                          width: 65,
+                                          fit: BoxFit.cover,
+                                        ),
+                                  const SizedBox(
+                                    height: AppSize.s7,
                                   ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: AppSize.s8,
-                            ),
-                            const Text(
-                              '01224344250',
-                              style: TextStyle(
-                                color: ColorManager.greyDark,
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            DriverWidget(),
-                          ],
-                        ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          context.push(AccountInformationScreen(
+                                            model: homeCubit
+                                                .personalAccountSuccessModel!,
+                                          ));
+                                        },
+                                        child: SvgPicture.asset(
+                                          ImageAssets.editIcon,
+                                          height: AppSize.s18,
+                                          width: AppSize.s18,
+                                          color: ColorManager.greyDark,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: AppSize.s8,
+                                      ),
+                                      Text(
+                                        '${homeCubit.personalAccountSuccessModel!.firstName} ${homeCubit.personalAccountSuccessModel!.lastName}',
+                                        style: TextStyle(
+                                          color: ColorManager.primaryLight,
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: AppSize.s8,
+                                  ),
+                                  Text(
+                                    homeCubit.personalAccountSuccessModel!
+                                            .phoneNumber ??
+                                        "000",
+                                    style: TextStyle(
+                                      color: ColorManager.greyDark,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : homeCubit.personalAccountErrorModel != null
+                                ? Center(
+                                    child: Text(
+                                      homeCubit
+                                          .personalAccountErrorModel!.messages
+                                          .toString(),
+                                    ),
+                                  )
+                                : homeCubit.personalAccountError400Model != null
+                                    ? Center(
+                                        child: Text(
+                                          homeCubit
+                                              .personalAccountError400Model!
+                                              .detail
+                                              .toString(),
+                                        ),
+                                      )
+                                    : const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                        DriverWidget(),
                         //My Account
                         AccountBannerWidget(
                           text: StringsManager.myAccount,

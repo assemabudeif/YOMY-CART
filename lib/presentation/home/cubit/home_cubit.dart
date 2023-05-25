@@ -9,6 +9,9 @@ import '../../../models/Store_page/store_page_error_model.dart';
 import '../../../models/Store_page/store_page_success_model.dart';
 import '../../../models/home_page/home_page_api_error_model.dart';
 import '../../../models/home_page/home_page_api_success_model.dart';
+import '../../../models/personal_account/personal_account_error400_model.dart';
+import '../../../models/personal_account/personal_account_error_model.dart';
+import '../../../models/personal_account/personal_account_success_model.dart';
 import '../../resources/routes_manager.dart';
 import '/presentation/account/account_screen.dart';
 import '/presentation/cart/cart_screen.dart';
@@ -95,6 +98,9 @@ class HomeCubit extends Cubit<HomeState> {
         context,
         MaterialPageRoute(builder: (context) => const CartScreen()),
       );
+    } else if (index == 4) {
+      getPersonalAccountFunction();
+      currentIndex = index;
     } else {
       currentIndex = index;
     }
@@ -156,6 +162,37 @@ class HomeCubit extends Cubit<HomeState> {
       log(response.detail.toString());
       storePageError400Model = response;
       emit(GetShopPageError400State(response));
+    }
+  }
+
+  PersonalAccountSuccessModel? personalAccountSuccessModel;
+
+  PersonalAccountError400Model? personalAccountError400Model;
+  PersonalAccountErrorModel? personalAccountErrorModel;
+
+  Future<void> getPersonalAccountFunction() async {
+    emit(GetPersonalAccountLoadingState());
+    final response = await Repository.instance
+        .personalAccountRepository()
+        .getPersonalAccount();
+
+    if (response is PersonalAccountSuccessModel) {
+      log(response.toString());
+      personalAccountSuccessModel = response;
+
+      emit(GetPersonalAccountSuccessState(response));
+    } else if (response is PersonalAccountErrorModel) {
+      log('Error: ${response.messages}');
+      if (response.messages![0] == "Authentication Failed.") {
+        log('Error: ${response.messages}');
+
+        personalAccountErrorModel = response;
+        emit(GetPersonalAccountErrorState(response));
+      }
+    } else if (response is PersonalAccountError400Model) {
+      log(response.detail.toString());
+      personalAccountError400Model = response;
+      emit(GetPersonalAccountError400State(response));
     }
   }
 }

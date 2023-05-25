@@ -15,4 +15,6 @@ class Endpoints {
       '$baseUrl/api/v1/productdetailspage/';
   static const String productDetailsSearchPageApi =
       '$baseUrl/api/v1/productdetailspage/search';
+
+  static const String personalAccountApi = '$baseUrl/api/personal/profile';
 }

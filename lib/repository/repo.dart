@@ -1,4 +1,5 @@
 import 'package:yomy_cart/repository/brand_page_repo.dart';
+import 'package:yomy_cart/repository/personal_account_repo.dart';
 import 'package:yomy_cart/repository/product_category_repo.dart';
 import 'package:yomy_cart/repository/product_page_repo.dart';
 import 'package:yomy_cart/repository/store_offer_page_repo.dart';
@@ -29,4 +30,7 @@ class Repository {
       StoreOfferPageRepository.instance;
 
   BrandPageRepository brandPageRepository() => BrandPageRepository.instance;
+
+  PersonalAccountRepository personalAccountRepository() =>
+      PersonalAccountRepository.instance;
 }

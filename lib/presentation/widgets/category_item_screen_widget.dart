@@ -15,10 +15,12 @@ import '/presentation/widgets/location_mark_float_widget.dart';
 
 class CategoryItemScreenWidget extends StatelessWidget {
   final CategoryItemModel model;
+  final String title;
 
   const CategoryItemScreenWidget({
     Key? key,
     required this.model,
+    required this.title,
   }) : super(key: key);
 
   @override
@@ -45,9 +47,9 @@ class CategoryItemScreenWidget extends StatelessWidget {
               null) {
             return Scaffold(
               appBar: AppBar(
-                ///todo
+                ///todo title
                 title: Text(
-                  cubit.productCategoryPageSuccessModel!.data![0].categoryName!,
+                  title,
                   style: const TextStyle(
                     letterSpacing: AppSize.none,
                     fontFamily: FontConstants.fontFamily,
@@ -74,7 +76,7 @@ class CategoryItemScreenWidget extends StatelessWidget {
                             height: AppSize.s12,
                           ),
                           // categories Images
-                          ///todo
+                          ///todo photos
                           Padding(
                             padding:
                                 const EdgeInsets.only(left: AppPadding.p12),
