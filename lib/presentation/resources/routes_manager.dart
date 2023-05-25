@@ -43,7 +43,7 @@ class Routes {
   static const home = '/home';
   static const categories = '/categories';
   static const account = '/account';
-  static const accountInformation = '/accountInformation';
+  // static const accountInformation = '/accountInformation';
   static const changePassword = '/change_Password';
   static const about = '/about';
   static const policy = '/policy';
@@ -94,9 +94,9 @@ class AppRoutes {
             builder: (context) => const CategoriesScreen());
       case Routes.account:
         return MaterialPageRoute(builder: (context) => const AccountScreen());
-      case Routes.accountInformation:
-        return MaterialPageRoute(
-            builder: (context) => const AccountInformationScreen());
+      // case Routes.accountInformation:
+      //   return MaterialPageRoute(
+      //       builder: (context) => const AccountInformationScreen());
       case Routes.changePassword:
         return MaterialPageRoute(
             builder: (context) => const ChangePasswordScreen());

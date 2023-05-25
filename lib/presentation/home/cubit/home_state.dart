@@ -54,3 +54,23 @@ class GetShopPageError400State extends HomeState {
 
   GetShopPageError400State(this.storePageError400Model);
 }
+
+class GetPersonalAccountLoadingState extends HomeState {}
+
+class GetPersonalAccountSuccessState extends HomeState {
+  final PersonalAccountSuccessModel personalAccountSuccessModel;
+
+  GetPersonalAccountSuccessState(this.personalAccountSuccessModel);
+}
+
+class GetPersonalAccountErrorState extends HomeState {
+  final PersonalAccountErrorModel personalAccountErrorModel;
+
+  GetPersonalAccountErrorState(this.personalAccountErrorModel);
+}
+
+class GetPersonalAccountError400State extends HomeState {
+  final PersonalAccountError400Model personalAccountError400Model;
+
+  GetPersonalAccountError400State(this.personalAccountError400Model);
+}

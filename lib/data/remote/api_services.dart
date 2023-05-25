@@ -1,4 +1,5 @@
 import 'package:yomy_cart/data/remote/home_page_api.dart';
+import 'package:yomy_cart/data/remote/personal_account_api.dart';
 import 'package:yomy_cart/data/remote/product_details_search_page_api.dart';
 import 'package:yomy_cart/data/remote/productcategorypage.dart';
 import 'package:yomy_cart/data/remote/store_page_api.dart';
@@ -37,4 +38,6 @@ class ApiServices {
 
   ProductDetailsSearchPageAPI productDetailsSearchPageApi() =>
       ProductDetailsSearchPageAPI.instance;
+
+  PersonalAccountApi personalAccountApi() => PersonalAccountApi.instance;
 }
