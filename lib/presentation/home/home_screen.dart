@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ShopScreen(
-                    storePageSuccessDataModel:
+                    storePageSearchSuccessDataModel:
                         state.storePageSearchSuccessModel,
                   ),
                 ));

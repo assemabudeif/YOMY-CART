@@ -16,7 +16,7 @@ class StoreOfferPageApi {
       {required int storeOfferId}) async {
     try {
       Response response = await DioLogger.getDio().post(
-        Endpoints.productPageApi,
+        Endpoints.storeOfferPageApi,
         data: {
           "pageId": 1,
           "offerId": storeOfferId,

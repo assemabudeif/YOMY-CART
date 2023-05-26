@@ -5,7 +5,8 @@ class Endpoints {
   static const String homePageApi = '$baseUrl/api/v1/homepage/search';
   static const String storePageApi = '$baseUrl/api/v1/storepage/';
   static const String storePageSearchApi = '$baseUrl/api/v1/storepage/search';
-  static const String productPageApi = '$baseUrl/api/v1/productpage/search';
+  static const String productPageSearchApi =
+      '$baseUrl/api/v1/productpage/search';
   static const String storeOfferPageApi =
       '$baseUrl/api/v1/storeofferpage/search';
   static const String productCategoryPageApi =

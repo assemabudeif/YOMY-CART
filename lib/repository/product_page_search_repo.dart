@@ -1,6 +1,5 @@
-import 'package:yomy_cart/models/product_search/product_details_search_model.dart';
-
 import '../data/remote/api_services.dart';
+import '../models/product_page_search/product_search_page_model.dart';
 
 class ProductPageSearchRepository {
   static final instance = ProductPageSearchRepository._internal();
@@ -9,9 +8,8 @@ class ProductPageSearchRepository {
 
   factory ProductPageSearchRepository() => instance;
 
-  Future<ProductDetailsSearchModel> getProductDetailsSearch(
-          int productId) async =>
+  Future<ProductPageSearchModel> getProductPageSearch(int productId) async =>
       await ApiServices.instance
-          .productDetailsSearchPageApi()
-          .fetchProductDetailsSearchPage(productId: productId);
+          .productPageSearchApi()
+          .fetchProductPageSearch(productId: productId);
 }

@@ -6,6 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/product_details/product_details_error_400_model.dart';
 import '../../../models/product_details/product_details_error_model.dart';
 import '../../../models/product_details/product_details_success_model.dart';
+import '../../../models/product_page_search/product_page_search_error400_model.dart';
+import '../../../models/product_page_search/product_page_search_error_model.dart';
+import '../../../models/product_page_search/product_page_search_success_model.dart';
+import '../../../models/product_search/product_details_search_error_400_model.dart';
+import '../../../models/product_search/product_details_search_error_model.dart';
+import '../../../models/product_search/product_details_search_success_model.dart';
 import '../../../repository/repo.dart';
 import '../../resources/routes_manager.dart';
 import '/models/shop_category_model.dart';
@@ -122,15 +128,15 @@ class ShopCubit extends Cubit<ShopState> {
   }
 
   late ProductDetailsSuccessModel productDetailsSuccessModel;
-
   late ProductDetailsError400Model productDetailsError400Model;
   late ProductDetailsErrorModel productDetailsErrorModel;
 
   Future<void> getProductDetailsButtonPressed(
       BuildContext context, int id) async {
     emit(GetProductDetailsLoadingState());
-    final response =
-        await Repository.instance.productPageRepository().getProductDetails(id);
+    final response = await Repository.instance
+        .productDetailsRepository()
+        .getProductDetails(id);
 
     if (response is ProductDetailsSuccessModel) {
       log(response.toString());
@@ -151,6 +157,72 @@ class ShopCubit extends Cubit<ShopState> {
       log(response.detail.toString());
       productDetailsError400Model = response;
       emit(GetProductDetailsError400State(response));
+    }
+  }
+
+  ProductDetailsSearchSuccessModel? productDetailsSearchSuccessModel;
+  ProductDetailsSearchError400Model? productDetailsSearchError400Model;
+  ProductDetailsSearchErrorModel? productDetailsSearchErrorModel;
+
+  Future<void> getProductDetailsSearchButtonPressed(
+      BuildContext context, int id) async {
+    emit(GetProductDetailsSearchLoadingState());
+    final response = await Repository.instance
+        .productDetailsSearchRepository()
+        .getProductDetailsSearch(id);
+
+    if (response is ProductDetailsSearchSuccessModel) {
+      log(response.toString());
+      productDetailsSearchSuccessModel = response;
+
+      emit(GetProductDetailsSearchSuccessState(response));
+    } else if (response is ProductDetailsSearchErrorModel) {
+      log('Error: ${response.toString()}');
+      if (response.messages![0] == "Authentication Failed.") {
+        log('Error: ${response.messages}');
+
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.loginRoute, (route) => false);
+      }
+      productDetailsSearchErrorModel = response;
+      emit(GetProductDetailsSearchErrorState(response));
+    } else if (response is ProductDetailsSearchError400Model) {
+      log(response.detail.toString());
+      productDetailsSearchError400Model = response;
+      emit(GetProductDetailsSearchError400State(response));
+    }
+  }
+
+  ProductPageSearchSuccessModel? productPageSearchSuccessModel;
+  ProductPageSearchError400Model? productPageSearchError400Model;
+  ProductPageSearchErrorModel? productPageSearchErrorModel;
+
+  Future<void> getProductPageSearchButtonPressed(
+      BuildContext context, int id) async {
+    emit(GetProductPageSearchLoadingState());
+    final response = await Repository.instance
+        .productPageSearchRepository()
+        .getProductPageSearch(id);
+
+    if (response is ProductPageSearchSuccessModel) {
+      log(response.toString());
+      productPageSearchSuccessModel = response;
+
+      emit(GetProductPageSearchSuccessState(response));
+    } else if (response is ProductPageSearchErrorModel) {
+      log('Error: ${response.toString()}');
+      if (response.messages![0] == "Authentication Failed.") {
+        log('Error: ${response.messages}');
+
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.loginRoute, (route) => false);
+      }
+      productPageSearchErrorModel = response;
+      emit(GetProductPageSearchErrorState(response));
+    } else if (response is ProductPageSearchError400Model) {
+      log(response.detail.toString());
+      productPageSearchError400Model = response;
+      emit(GetProductPageSearchError400State(response));
     }
   }
 }
