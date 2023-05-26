@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yomy_cart/presentation/product/product_screen.dart';
 import '../../models/Store_page/store_page_success_model.dart';
+import '../../models/store_page_search/store_page_search_success_model.dart';
 import '/presentation/resources/assets_manager.dart';
 import '/presentation/resources/colors_manager.dart';
 import '/presentation/resources/font_manager.dart';
@@ -18,7 +19,7 @@ import '/presentation/widgets/shop_item_vertical_widget.dart';
 import '/presentation/widgets/shop_search_bar_widget.dart';
 
 class ShopScreen extends StatelessWidget {
-  final StorePageSuccessModel storePageSuccessDataModel;
+  final StorePageSearchSuccessModel storePageSuccessDataModel;
 
   const ShopScreen({
     Key? key,
@@ -84,20 +85,21 @@ class ShopScreen extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     children: [
                       Image.network(
-                        storePageSuccessDataModel.storeImage!,
+                        storePageSuccessDataModel.data![0].storeImage!,
                         width: double.infinity,
                         height: AppSize.s156,
+                        fit: BoxFit.cover,
                       ),
-                      // Image.asset(
-                      //   ImageAssets.shadoImage,
-                      //   width: double.infinity,
-                      // ),
+                      Image.asset(
+                        ImageAssets.shadoImage,
+                        width: double.infinity,
+                      ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Row(
                           children: [
                             Text(
-                              storePageSuccessDataModel.storeName!,
+                              storePageSuccessDataModel.data![0].storeName!,
                               style: const TextStyle(
                                 color: ColorManager.white,
                                 fontWeight: FontWeightManager.medium,
@@ -124,12 +126,13 @@ class ShopScreen extends StatelessWidget {
                                 radius: AppSize.s25,
                                 backgroundColor: ColorManager.accent,
                                 child: Icon(
-                                  storePageSuccessDataModel.isAddToFavoraite!
+                                  storePageSuccessDataModel
+                                          .data![0].isAddToFavoraite!
                                       ? Icons.favorite
                                       : Icons.favorite_border,
                                   size: AppSize.s19,
                                   color: storePageSuccessDataModel
-                                          .isAddToFavoraite!
+                                          .data![0].isAddToFavoraite!
                                       ? ColorManager.red
                                       : Colors.white,
                                 ),
@@ -156,19 +159,19 @@ class ShopScreen extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) =>
                               ShopCategoryItemWidget(
-                            image: storePageSuccessDataModel
+                            image: storePageSuccessDataModel.data![0]
                                 .storePageTypesDto![index].storeTypeImage!,
-                            text: storePageSuccessDataModel
+                            text: storePageSuccessDataModel.data![0]
                                 .storePageTypesDto![index].storeTypeName!,
 
                             ///todo
-                            isTaped: cubit.model[index].isTaped,
+                            isTaped: false,
                           ),
                           separatorBuilder: (context, index) => const SizedBox(
                             width: AppSize.s16,
                           ),
                           itemCount: storePageSuccessDataModel
-                              .storePageTypesDto!.length,
+                              .data![0].storePageTypesDto!.length,
                         ),
                       ),
                     ),
@@ -336,40 +339,39 @@ class ShopScreen extends StatelessWidget {
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) =>
                               ShopItemHorizontalWidget(
-                                  onTap: () {
-                                    cubit.getProductDetailsButtonPressed(
-                                      context,
-                                      storePageSuccessDataModel
-                                          .storePageProductsDto![index]
-                                          .productId! as int,
-                                    );
-                                  },
+                            onTap: () {
+                              cubit.getProductDetailsButtonPressed(
+                                context,
+                                storePageSuccessDataModel
+                                    .data![0]
+                                    .storePageProductsDto![index]
+                                    .productId! as int,
+                              );
+                            },
 
-                                  ///todo in cart
-                                  inCart: false,
-                                  isFavorite: storePageSuccessDataModel
-                                      .storePageProductsDto![index]
-                                      .isAddToFavoraite!,
-                                  name: storePageSuccessDataModel
-                                      .storePageProductsDto![index]
-                                      .productName!,
-                                  price: storePageSuccessDataModel
-                                      .storePageProductsDto![index]
-                                      .productPrice!,
-                                  image: storePageSuccessDataModel
-                                      .storePageProductsDto![index]
-                                      .productImage!,
-                                  quantity: storePageSuccessDataModel
-                                      .storePageProductsDto![index]
-                                      .productQuantity!,
-                                  rate: 4
-                                  //  storePageSuccessDataModel.storePageProductsDto![index].productRate!,
-                                  ),
+                            ///todo in cart
+                            inCart: false,
+                            cartPress: () {},
+
+                            isFavorite: storePageSuccessDataModel.data![0]
+                                .storePageProductsDto![index].isAddToFavoraite!,
+                            name: storePageSuccessDataModel.data![0]
+                                .storePageProductsDto![index].productName!,
+                            price: storePageSuccessDataModel.data![0]
+                                .storePageProductsDto![index].productPrice!,
+                            image: storePageSuccessDataModel.data![0]
+                                .storePageProductsDto![index].productImage!,
+                            quantity: storePageSuccessDataModel.data![0]
+                                .storePageProductsDto![index].productQuantity!,
+                            rate: int.parse(storePageSuccessDataModel.data![0]
+                                    .storePageProductsDto![index].productRate!)
+                                .toDouble(),
+                          ),
                           separatorBuilder: (context, index) => const SizedBox(
                             height: AppSize.s10,
                           ),
                           itemCount: storePageSuccessDataModel
-                              .storePageProductsDto!.length,
+                              .data![0].storePageProductsDto!.length,
                         ),
                       ],
                     ),

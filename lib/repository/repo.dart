@@ -4,6 +4,7 @@ import 'package:yomy_cart/repository/product_category_repo.dart';
 import 'package:yomy_cart/repository/product_page_repo.dart';
 import 'package:yomy_cart/repository/store_offer_page_repo.dart';
 import 'package:yomy_cart/repository/strore_page_repo.dart';
+import 'package:yomy_cart/repository/strore_page_search_repo.dart';
 
 import 'Home_repo.dart';
 import 'auth_repo.dart';
@@ -23,6 +24,9 @@ class Repository {
   ProductCaegoryRepo productCategoryRepo() => ProductCaegoryRepo.instance;
 
   StorePageRepository storePageRepository() => StorePageRepository.instance;
+
+  StorePageSearchRepository storePageSearchRepository() =>
+      StorePageSearchRepository.instance;
 
   ProductPageRepository productPageRepository() =>
       ProductPageRepository.instance;

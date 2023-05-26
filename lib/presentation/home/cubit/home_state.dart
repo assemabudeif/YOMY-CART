@@ -43,6 +43,26 @@ class GetShopPageSuccessState extends HomeState {
   GetShopPageSuccessState(this.storePageSuccessModel);
 }
 
+class GetShopPageSearchLoadingState extends HomeState {}
+
+class GetShopPageSearchSuccessState extends HomeState {
+  final StorePageSearchSuccessModel storePageSearchSuccessModel;
+
+  GetShopPageSearchSuccessState(this.storePageSearchSuccessModel);
+}
+
+class GetShopPageSearchErrorState extends HomeState {
+  final StorePageSearchErrorModel storePageSearchErrorModel;
+
+  GetShopPageSearchErrorState(this.storePageSearchErrorModel);
+}
+
+class GetShopPageSearchError400State extends HomeState {
+  final StorePageSearchError400Model storePageSearchError400Model;
+
+  GetShopPageSearchError400State(this.storePageSearchError400Model);
+}
+
 class GetShopPageErrorState extends HomeState {
   final StorePageErrorModel storePageErrorModel;
 

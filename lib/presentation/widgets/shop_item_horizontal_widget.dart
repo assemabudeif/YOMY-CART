@@ -16,6 +16,7 @@ class ShopItemHorizontalWidget extends StatelessWidget {
   final String image;
   final double rate;
   final Function() onTap;
+  final Function() cartPress;
 
   const ShopItemHorizontalWidget({
     Key? key,
@@ -27,6 +28,7 @@ class ShopItemHorizontalWidget extends StatelessWidget {
     required this.quantity,
     required this.image,
     required this.onTap,
+    required this.cartPress,
   }) : super(key: key);
 
   @override
@@ -48,9 +50,10 @@ class ShopItemHorizontalWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
+                ///todo Image
                 // product image
                 Image.network(
-                  image,
+                  'https://media-cdn.tripadvisor.com/media/photo-o/0d/f6/48/25/photo0jpg.jpg',
                   height: AppSize.s82,
                   width: AppSize.s143,
                 ),
@@ -184,7 +187,7 @@ class ShopItemHorizontalWidget extends StatelessWidget {
                               //add to cart
                               : Expanded(
                                   child: DefaultButtonWidget(
-                                    onPressed: () {},
+                                    onPressed: cartPress,
                                     radius: AppSize.s15,
                                     color: ColorManager.primaryLight,
                                     child: Text(

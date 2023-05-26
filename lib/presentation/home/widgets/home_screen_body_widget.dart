@@ -59,7 +59,7 @@ class HomeScreenBodyWidget extends StatelessWidget {
                       rate: cubit.homePageApiModel!.data![bodyIndex]
                           .homePageDetailDto![index].rate!,
                       onTap: () {
-                        cubit.getShopPageButtonPressed(
+                        cubit.getShopPageSearchButtonPressed(
                           context,
                           cubit.homePageApiModel!.data![bodyIndex]
                               .homePageDetailDto![index].sliderItemId!,

@@ -8,7 +8,7 @@ class StorePageSearchRepository {
 
   factory StorePageSearchRepository() => instance;
 
-  Future<StorePageSearchModel> getStoreDetails(int storeId) async =>
+  Future<StorePageSearchModel> getStoreSearchDetails(int storeId) async =>
       await ApiServices.instance
           .storePageSearchApi()
           .searchStore(storeId: storeId);

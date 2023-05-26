@@ -31,12 +31,12 @@ class CategoryItemScreenWidget extends StatelessWidget {
       create: (context) => CategoriesCubit()..getProductCategory(),
       child: BlocConsumer<CategoriesCubit, CategoriesState>(
         listener: (context, state) {
-          if (state is GetShopPageSuccessState) {
+          if (state is GetShopPageSearchSuccessState) {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => ShopScreen(
-                  storePageSuccessDataModel: state.storePageSuccessModel,
+                  storePageSuccessDataModel: state.storePageSearchSuccessModel,
                 ),
               ),
             );

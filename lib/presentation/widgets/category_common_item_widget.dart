@@ -19,7 +19,7 @@ class CategoryCommonListItemWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         CategoriesCubit.get(context)
-            .shopPageButtonPressed(context, model.categoryId!);
+            .shopPageSearchButtonPressed(context, model.categoryId!);
       },
       child: SizedBox(
         height: AppSize.s152,

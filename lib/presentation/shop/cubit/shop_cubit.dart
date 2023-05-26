@@ -17,42 +17,42 @@ class ShopCubit extends Cubit<ShopState> {
 
   static ShopCubit get(BuildContext context) => BlocProvider.of(context);
 
-  List<ShopCategoryModel> model = [
-    ShopCategoryModel(
-      name: 'All',
-      image: ImageAssets.allIcon,
-      isTaped: true,
-    ),
-    ShopCategoryModel(
-      name: 'Drinks',
-      image: ImageAssets.drinksImg,
-      isTaped: false,
-    ),
-    ShopCategoryModel(
-      name: 'Sweets',
-      image: ImageAssets.sweetsIcon,
-      isTaped: false,
-    ),
-    ShopCategoryModel(
-      name: 'Cleaners',
-      image: ImageAssets.cleaningProductIcon,
-      isTaped: false,
-    ),
-    ShopCategoryModel(
-      name: 'Foods',
-      image: ImageAssets.foodsIcon,
-      isTaped: false,
-    ),
-    ShopCategoryModel(
-      name: 'Sweets',
-      image: ImageAssets.sweetsIcon,
-      isTaped: false,
-    ),
-  ];
+  // List<ShopCategoryModel> model = [
+  //   ShopCategoryModel(
+  //     name: 'All',
+  //     image: ImageAssets.allIcon,
+  //     isTaped: true,
+  //   ),
+  //   ShopCategoryModel(
+  //     name: 'Drinks',
+  //     image: ImageAssets.drinksImg,
+  //     isTaped: false,
+  //   ),
+  //   ShopCategoryModel(
+  //     name: 'Sweets',
+  //     image: ImageAssets.sweetsIcon,
+  //     isTaped: false,
+  //   ),
+  //   ShopCategoryModel(
+  //     name: 'Cleaners',
+  //     image: ImageAssets.cleaningProductIcon,
+  //     isTaped: false,
+  //   ),
+  //   ShopCategoryModel(
+  //     name: 'Foods',
+  //     image: ImageAssets.foodsIcon,
+  //     isTaped: false,
+  //   ),
+  //   ShopCategoryModel(
+  //     name: 'Sweets',
+  //     image: ImageAssets.sweetsIcon,
+  //     isTaped: false,
+  //   ),
+  // ];
 
   bool isFavorite = false;
-  bool isProducts = false;
-  bool isOffers = true;
+  bool isProducts = true;
+  bool isOffers = false;
 
   void changeButton(String type) {
     if (type == 'products') {
@@ -67,8 +67,9 @@ class ShopCubit extends Cubit<ShopState> {
     emit(ChangeButtonState());
   }
 
+  ///todo
   void changeFavorite() {
-    isFavorite = !isFavorite;
+    // isFavorite = !isFavorite;
 
     emit(ChangeFavoriteState());
   }

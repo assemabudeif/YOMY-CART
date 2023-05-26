@@ -124,6 +124,7 @@ class CartScreen extends StatelessWidget {
                   ),
                   ShopItemHorizontalWidget(
                     onTap: () {},
+                    cartPress: () {},
                     inCart: true,
                     isFavorite: false,
                     name: 'Lasnshon Halwany',
@@ -137,6 +138,7 @@ class CartScreen extends StatelessWidget {
                   ),
                   ShopItemHorizontalWidget(
                     onTap: () {},
+                    cartPress: () {},
                     inCart: true,
                     isFavorite: true,
                     name: 'Lasnshon Halwany',

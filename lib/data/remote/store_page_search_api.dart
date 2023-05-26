@@ -16,7 +16,7 @@ class StorePageSearchApi {
   Future<StorePageSearchModel> searchStore({required int storeId}) async {
     try {
       Response response = await DioLogger.getDio().post(
-        Endpoints.storePageApi,
+        Endpoints.storePageSearchApi,
         data: {
           "pageId": 1,
           "storeId": storeId,

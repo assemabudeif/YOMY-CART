@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yomy_cart/models/home_page/home_page_api_error400_model.dart';
+import 'package:yomy_cart/presentation/shop/shop_screen.dart';
 
 import '../../../models/Store_page/store_page_error400_model.dart';
 import '../../../models/Store_page/store_page_error_model.dart';
@@ -12,6 +13,9 @@ import '../../../models/home_page/home_page_api_success_model.dart';
 import '../../../models/personal_account/personal_account_error400_model.dart';
 import '../../../models/personal_account/personal_account_error_model.dart';
 import '../../../models/personal_account/personal_account_success_model.dart';
+import '../../../models/store_page_search/store_page_search_error400_model.dart';
+import '../../../models/store_page_search/store_page_search_error_model.dart';
+import '../../../models/store_page_search/store_page_search_success_model.dart';
 import '../../resources/routes_manager.dart';
 import '/presentation/account/account_screen.dart';
 import '/presentation/cart/cart_screen.dart';
@@ -133,10 +137,43 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  late StorePageSuccessModel storePageSuccessModel;
+  StorePageSearchSuccessModel? storePageSearchSuccessModel;
+  StorePageSearchError400Model? storePageSearchError400Model;
+  StorePageSearchErrorModel? storePageSearchErrorModel;
 
+  Future<void> getShopPageSearchButtonPressed(
+      BuildContext context, int id) async {
+    emit(GetShopPageSearchLoadingState());
+    final response = await Repository.instance
+        .storePageSearchRepository()
+        .getStoreSearchDetails(id);
+
+    if (response is StorePageSearchSuccessModel) {
+      log(response.toString());
+      storePageSearchSuccessModel = response;
+      emit(GetShopPageSearchSuccessState(response));
+    } else if (response is StorePageSearchErrorModel) {
+      log('Error: ${response.messages}');
+      if (response.messages![0] == "Authentication Failed.") {
+        log('Error: ${response.messages}');
+
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.loginRoute, (route) => false);
+      }
+      storePageSearchErrorModel = response;
+      emit(GetShopPageSearchErrorState(response));
+    } else if (response is StorePageSearchError400Model) {
+      log(response.detail.toString());
+      storePageSearchError400Model = response;
+      emit(GetShopPageSearchError400State(response));
+    }
+  }
+
+  late StorePageSuccessModel storePageSuccessModel;
   late StorePageError400Model storePageError400Model;
   late StorePageErrorModel storePageErrorModel;
+
+  ///ToDo Function inputs
 
   Future<void> getShopPageButtonPressed(BuildContext context, int id) async {
     emit(GetShopPageLoadingState());

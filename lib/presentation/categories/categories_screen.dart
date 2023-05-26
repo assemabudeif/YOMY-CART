@@ -29,12 +29,12 @@ class CategoriesScreen extends StatelessWidget {
     ];
     return BlocConsumer<CategoriesCubit, CategoriesState>(
         listener: (context, state) {
-      if (state is GetShopPageSuccessState) {
+      if (state is GetShopPageSearchSuccessState) {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => ShopScreen(
-              storePageSuccessDataModel: state.storePageSuccessModel,
+              storePageSuccessDataModel: state.storePageSearchSuccessModel,
             ),
           ),
         );
@@ -83,7 +83,7 @@ class CategoriesScreen extends StatelessWidget {
                       (index) => HomeListItemWidget(
                         onTap: () {
                           ///todo ID
-                          cubit.shopPageButtonPressed(context, 0);
+                          cubit.shopPageSearchButtonPressed(context, 1);
                         },
                         address: StringsManager.haramGiza,
                         image:

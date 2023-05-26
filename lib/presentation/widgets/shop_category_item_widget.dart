@@ -29,12 +29,11 @@ class ShopCategoryItemWidget extends StatelessWidget {
           Stack(
             alignment: Alignment.center,
             children: [
-              SvgPicture.asset(
-                isTaped ? ImageAssets.squareIcon : ImageAssets.whiteSquare,
-              ),
-              SvgPicture.asset(
+              Image.network(
                 image,
-                color: isTaped ? ColorManager.white : ColorManager.grey4,
+                height: 48,
+                width: 48,
+                //  color: isTaped ? ColorManager.white : ColorManager.grey4,
               ),
             ],
           ),

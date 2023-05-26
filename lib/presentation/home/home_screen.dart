@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../shop/shop_screen.dart';
 import '/presentation/home/cubit/home_cubit.dart';
 import '/presentation/resources/strings_manager.dart';
 import '/presentation/resources/values_manager.dart';
@@ -16,7 +17,16 @@ class HomeScreen extends StatelessWidget {
       create: (context) => HomeCubit()..getHomeScreenApi(context: context),
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
-          // TODO: implement listener
+          if (state is GetShopPageSearchSuccessState) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ShopScreen(
+                    storePageSuccessDataModel:
+                        state.storePageSearchSuccessModel,
+                  ),
+                ));
+          }
         },
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
