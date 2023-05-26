@@ -17,9 +17,15 @@ class HomeScreenHeaderWidget extends StatelessWidget {
         CarouselSlider(
           items: cubit.homePageApiModel!.data![0].homePageDetailDto!
               .map(
-                (e) => Image.network(
-                  e.sliderItemImage!,
-                  fit: BoxFit.cover,
+                (e) => InkWell(
+                  onTap: () {
+                    cubit.getShopPageSearchButtonPressed(
+                        context, e.sliderItemId!);
+                  },
+                  child: Image.network(
+                    e.sliderItemImage!,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               )
               .toList(),
