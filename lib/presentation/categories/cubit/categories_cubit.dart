@@ -5,10 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yomy_cart/models/Store_page/store_page_error400_model.dart';
 import 'package:yomy_cart/models/Store_page/store_page_success_model.dart';
 import 'package:yomy_cart/models/product_category_page/product_category_page_model.dart';
+import 'package:yomy_cart/models/store_page_search/store_page_search_success_model.dart';
 import '../../../models/Store_page/store_page_error_model.dart';
 import '../../../models/product_category_page/product_category_page_error_400_model.dart';
 import '../../../models/product_category_page/product_category_page_error_model.dart';
 import '../../../models/product_category_page/product_category_page_success_model.dart';
+import '../../../models/store_page_search/store_page_search_error400_model.dart';
+import '../../../models/store_page_search/store_page_search_error_model.dart';
 import '../../resources/routes_manager.dart';
 import '/models/category_common_model.dart';
 import '/models/category_item_model.dart';
@@ -289,6 +292,40 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       log(response.detail.toString());
       storePageError400Model = response;
       emit(GetShopPageError400State(response));
+    }
+  }
+
+  StorePageSearchSuccessModel? storePageSearchSuccessModel;
+  StorePageSearchError400Model? storePageSearchError400Model;
+  StorePageSearchErrorModel? storePageSearchErrorModel;
+
+  ///ToDo Function inputs
+
+  Future<void> shopPageSearchButtonPressed(BuildContext context, int id) async {
+    emit(GetShopPageSearchLoadingState());
+    final response = await Repository.instance
+        .storePageSearchRepository()
+        .getStoreSearchDetails(id);
+
+    if (response is StorePageSearchSuccessModel) {
+      log(response.toString());
+      storePageSearchSuccessModel = response;
+
+      emit(GetShopPageSearchSuccessState(response));
+    } else if (response is StorePageSearchErrorModel) {
+      log('Error: ${response.messages}');
+      if (response.messages![0] == "Authentication Failed.") {
+        log('Error: ${response.messages}');
+
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.loginRoute, (route) => false);
+      }
+      storePageSearchErrorModel = response;
+      emit(GetShopPageSearchErrorState(response));
+    } else if (response is StorePageSearchError400Model) {
+      log(response.detail.toString());
+      storePageSearchError400Model = response;
+      emit(GetShopPageSearchError400State(response));
     }
   }
 }

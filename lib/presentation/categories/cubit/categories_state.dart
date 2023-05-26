@@ -2,6 +2,9 @@ import 'package:yomy_cart/models/Store_page/store_page_error400_model.dart';
 import 'package:yomy_cart/models/Store_page/store_page_success_model.dart';
 
 import '../../../models/Store_page/store_page_error_model.dart';
+import '../../../models/store_page_search/store_page_search_error400_model.dart';
+import '../../../models/store_page_search/store_page_search_error_model.dart';
+import '../../../models/store_page_search/store_page_search_success_model.dart';
 
 abstract class CategoriesState {}
 
@@ -34,3 +37,23 @@ class GetProductCategoryPageSuccessState extends CategoriesState {}
 class GetProductCategoryPageErrorState extends CategoriesState {}
 
 class GetProductCategoryPageError400State extends CategoriesState {}
+
+class GetShopPageSearchLoadingState extends CategoriesState {}
+
+class GetShopPageSearchSuccessState extends CategoriesState {
+  final StorePageSearchSuccessModel storePageSearchSuccessModel;
+
+  GetShopPageSearchSuccessState(this.storePageSearchSuccessModel);
+}
+
+class GetShopPageSearchErrorState extends CategoriesState {
+  final StorePageSearchErrorModel storePageSearchErrorModel;
+
+  GetShopPageSearchErrorState(this.storePageSearchErrorModel);
+}
+
+class GetShopPageSearchError400State extends CategoriesState {
+  final StorePageSearchError400Model storePageSearchError400Model;
+
+  GetShopPageSearchError400State(this.storePageSearchError400Model);
+}

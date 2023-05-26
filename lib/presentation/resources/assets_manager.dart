@@ -72,7 +72,7 @@ class ImageAssets {
 
   static const String filterIcon = '$imagePath/filter_icon.svg';
   static const String muskMarket = '$imagePath/musk_market_img.png';
-  static const String shadoImage = '$imagePath/shado_img.svg';
+  static const String shadoImage = '$imagePath/shado_img.png';
   static const String aboutImage = '$imagePath/about_img.svg';
   static const String allIcon = '$imagePath/all_icon.svg';
   static const String squareIcon = '$imagePath/square_icon.svg';
