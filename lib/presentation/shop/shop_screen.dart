@@ -244,7 +244,12 @@ class ShopScreen extends StatelessWidget {
                             Expanded(
                               child: InkWell(
                                 onTap: () {
-                                  cubit.changeButton('offers');
+                                  ///todo id
+                                  cubit.changeButton(
+                                    'offers',
+                                    context: context,
+                                    id: 1,
+                                  );
                                 },
                                 child: Column(
                                   children: [
@@ -296,8 +301,7 @@ class ShopScreen extends StatelessWidget {
                     ),
                   ),
 
-                  ///todo
-                  //product items
+                  //product and offer items
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: AppPadding.p16,
@@ -335,56 +339,155 @@ class ShopScreen extends StatelessWidget {
                         const SizedBox(
                           height: AppSize.s10,
                         ),*/
-                        ListView.separated(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) =>
-                              ShopItemHorizontalWidget(
-                            onTap: () {
-                              // cubit.getProductDetailsSearchButtonPressed(
-                              //   context,
-                              //   int.parse(storePageSuccessDataModel.data![0]
-                              //       .storePageProductsDto![index].productId!),
-                              // );
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ProductScreen(
-                                      storeName: storePageSearchSuccessDataModel
-                                          .data![0].storeName!,
-                                      model: storePageSearchSuccessDataModel
-                                          .data![0]
-                                          .storePageProductsDto![index]),
-                                ),
-                              );
-                            },
+                        if (cubit.isProducts)
+                          ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) =>
+                                ShopItemHorizontalWidget(
+                              onTap: () {
+                                // cubit.getProductDetailsSearchButtonPressed(
+                                //   context,
+                                //   int.parse(storePageSuccessDataModel.data![0]
+                                //       .storePageProductsDto![index].productId!),
+                                // );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProductScreen(
+                                        storeName:
+                                            storePageSearchSuccessDataModel
+                                                .data![0].storeName!,
+                                        model: storePageSearchSuccessDataModel
+                                            .data![0]
+                                            .storePageProductsDto![index]),
+                                  ),
+                                );
+                              },
 
-                            ///todo in cart
-                            inCart: false,
-                            cartPress: () {},
+                              ///todo in cart
+                              inCart: false,
+                              cartPress: () {},
 
-                            isFavorite: storePageSearchSuccessDataModel.data![0]
-                                .storePageProductsDto![index].isAddToFavoraite!,
-                            name: storePageSearchSuccessDataModel.data![0]
-                                .storePageProductsDto![index].productName!,
-                            price: storePageSearchSuccessDataModel.data![0]
-                                .storePageProductsDto![index].productPrice!,
-                            image: storePageSearchSuccessDataModel.data![0]
-                                .storePageProductsDto![index].productImage!,
-                            quantity: storePageSearchSuccessDataModel.data![0]
-                                .storePageProductsDto![index].productQuantity!,
-                            rate: int.parse(storePageSearchSuccessDataModel
-                                    .data![0]
-                                    .storePageProductsDto![index]
-                                    .productRate!)
-                                .toDouble(),
+                              isFavorite: storePageSearchSuccessDataModel
+                                  .data![0]
+                                  .storePageProductsDto![index]
+                                  .isAddToFavoraite!,
+                              name: storePageSearchSuccessDataModel.data![0]
+                                  .storePageProductsDto![index].productName!,
+                              price: storePageSearchSuccessDataModel.data![0]
+                                  .storePageProductsDto![index].productPrice!,
+                              image: storePageSearchSuccessDataModel.data![0]
+                                  .storePageProductsDto![index].productImage!,
+                              quantity: storePageSearchSuccessDataModel
+                                  .data![0]
+                                  .storePageProductsDto![index]
+                                  .productQuantity!,
+                              rate: int.parse(storePageSearchSuccessDataModel
+                                      .data![0]
+                                      .storePageProductsDto![index]
+                                      .productRate!)
+                                  .toDouble(),
+                            ),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
+                              height: AppSize.s10,
+                            ),
+                            itemCount: storePageSearchSuccessDataModel
+                                .data![0].storePageProductsDto!.length,
                           ),
-                          separatorBuilder: (context, index) => const SizedBox(
-                            height: AppSize.s10,
-                          ),
-                          itemCount: storePageSearchSuccessDataModel
-                              .data![0].storePageProductsDto!.length,
-                        ),
+                        if (cubit.isOffers)
+                          cubit.storeOfferSuccessModel != null
+                              ? ListView.separated(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) =>
+                                      ShopItemHorizontalWidget(
+                                    onTap: () {
+                                      ///todo function of product
+                                      // cubit.getProductDetailsSearchButtonPressed(
+                                      //   context,
+                                      //   int.parse(storePageSuccessDataModel.data![0]
+                                      //       .storePageProductsDto![index].productId!),
+                                      // );
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ProductScreen(
+                                              storeName: cubit
+                                                  .storeOfferSuccessModel!
+                                                  .data![0]
+                                                  .storeName!,
+                                              model: cubit
+                                                      .storeOfferSuccessModel!
+                                                      .data![0]
+                                                      .storePageProductsDto![
+                                                  index]),
+                                        ),
+                                      );
+                                    },
+
+                                    ///todo in cart
+                                    inCart: false,
+                                    cartPress: () {},
+
+                                    isFavorite: cubit
+                                        .storeOfferSuccessModel!
+                                        .data![0]
+                                        .storePageProductsDto![index]
+                                        .isAddToFavoraite!,
+                                    name: cubit
+                                        .storeOfferSuccessModel!
+                                        .data![0]
+                                        .storePageProductsDto![index]
+                                        .productName!,
+                                    price: cubit
+                                        .storeOfferSuccessModel!
+                                        .data![0]
+                                        .storePageProductsDto![index]
+                                        .productPrice!,
+                                    image: cubit
+                                        .storeOfferSuccessModel!
+                                        .data![0]
+                                        .storePageProductsDto![index]
+                                        .productImage!,
+                                    quantity: cubit
+                                        .storeOfferSuccessModel!
+                                        .data![0]
+                                        .storePageProductsDto![index]
+                                        .productQuantity!,
+                                    rate: int.parse(cubit
+                                            .storeOfferSuccessModel!
+                                            .data![0]
+                                            .storePageProductsDto![index]
+                                            .productRate!)
+                                        .toDouble(),
+                                  ),
+                                  separatorBuilder: (context, index) =>
+                                      const SizedBox(
+                                    height: AppSize.s10,
+                                  ),
+                                  itemCount: cubit.storeOfferSuccessModel!
+                                      .data![0].storePageProductsDto!.length,
+                                )
+                              : cubit.storeOfferErrorModel != null
+                                  ? Center(
+                                      child: Text(
+                                        cubit.storeOfferErrorModel!.messages
+                                            .toString(),
+                                      ),
+                                    )
+                                  : cubit.storeOfferError400Model != null
+                                      ? Center(
+                                          child: Text(
+                                            cubit
+                                                .storeOfferError400Model!.detail
+                                                .toString(),
+                                          ),
+                                        )
+                                      : const Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
                       ],
                     ),
                   ),

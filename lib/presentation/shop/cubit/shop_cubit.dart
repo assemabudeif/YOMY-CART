@@ -12,6 +12,9 @@ import '../../../models/product_page_search/product_page_search_success_model.da
 import '../../../models/product_search/product_details_search_error_400_model.dart';
 import '../../../models/product_search/product_details_search_error_model.dart';
 import '../../../models/product_search/product_details_search_success_model.dart';
+import '../../../models/store_page_search/store_page_search_error400_model.dart';
+import '../../../models/store_page_search/store_page_search_error_model.dart';
+import '../../../models/store_page_search/store_page_search_success_model.dart';
 import '../../../repository/repo.dart';
 import '../../resources/routes_manager.dart';
 import '/models/shop_category_model.dart';
@@ -60,12 +63,13 @@ class ShopCubit extends Cubit<ShopState> {
   bool isProducts = true;
   bool isOffers = false;
 
-  void changeButton(String type) {
+  void changeButton(String type, {context, id}) {
     if (type == 'products') {
       isProducts = true;
       isOffers = false;
     }
     if (type == 'offers') {
+      getStoreOfferButtonPressed(context, id);
       isProducts = false;
       isOffers = true;
     }
@@ -223,6 +227,38 @@ class ShopCubit extends Cubit<ShopState> {
       log(response.detail.toString());
       productPageSearchError400Model = response;
       emit(GetProductPageSearchError400State(response));
+    }
+  }
+
+  StorePageSearchSuccessModel? storeOfferSuccessModel;
+  StorePageSearchError400Model? storeOfferError400Model;
+  StorePageSearchErrorModel? storeOfferErrorModel;
+
+  Future<void> getStoreOfferButtonPressed(BuildContext context, int id) async {
+    emit(GetStoreOfferLoadingState());
+    final response = await Repository.instance
+        .storeOfferPageRepository()
+        .getStoreOfferDetails(id);
+
+    if (response is StorePageSearchSuccessModel) {
+      log(response.toString());
+      storeOfferSuccessModel = response;
+
+      emit(GetStoreOfferSuccessState(response));
+    } else if (response is StorePageSearchErrorModel) {
+      log('Error: ${response.toString()}');
+      if (response.messages![0] == "Authentication Failed.") {
+        log('Error: ${response.messages}');
+
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.loginRoute, (route) => false);
+      }
+      storeOfferErrorModel = response;
+      emit(GetStoreOfferErrorState(response));
+    } else if (response is StorePageSearchError400Model) {
+      log(response.detail.toString());
+      storeOfferError400Model = response;
+      emit(GetStoreOfferError400State(response));
     }
   }
 }
