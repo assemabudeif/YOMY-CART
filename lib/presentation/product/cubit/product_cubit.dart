@@ -7,11 +7,12 @@ class ProductCubit extends Cubit<ProductState> {
 
   static ProductCubit get(BuildContext context) => BlocProvider.of(context);
 
-  bool isFavorite = false;
+//  bool isFavorite = false;
   bool isInCart = false;
 
+  ///todo
   void changeFavoriteButton() {
-    isFavorite = !isFavorite;
+    //  isFavorite = !isFavorite;
     emit(ChangeFavoriteState());
   }
 

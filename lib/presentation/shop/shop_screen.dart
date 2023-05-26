@@ -19,11 +19,11 @@ import '/presentation/widgets/shop_item_vertical_widget.dart';
 import '/presentation/widgets/shop_search_bar_widget.dart';
 
 class ShopScreen extends StatelessWidget {
-  final StorePageSearchSuccessModel storePageSuccessDataModel;
+  final StorePageSearchSuccessModel storePageSearchSuccessDataModel;
 
   const ShopScreen({
     Key? key,
-    required this.storePageSuccessDataModel,
+    required this.storePageSearchSuccessDataModel,
   }) : super(key: key);
 
   @override
@@ -32,16 +32,16 @@ class ShopScreen extends StatelessWidget {
       create: (context) => ShopCubit(),
       child: BlocConsumer<ShopCubit, ShopState>(
         listener: (context, state) {
-          if (state is GetProductDetailsSuccessState) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProductScreen(
-                  model: state.productDetailsSuccessModel,
-                ),
-              ),
-            );
-          }
+          // if (state is GetProductDetailsSearchSuccessState) {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) => ProductScreen(
+          //         model: state.productDetailsSearchSuccessModel,
+          //       ),
+          //     ),
+          //   );
+          // }
         },
         builder: (context, state) {
           var cubit = ShopCubit.get(context);
@@ -85,7 +85,7 @@ class ShopScreen extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     children: [
                       Image.network(
-                        storePageSuccessDataModel.data![0].storeImage!,
+                        storePageSearchSuccessDataModel.data![0].storeImage!,
                         width: double.infinity,
                         height: AppSize.s156,
                         fit: BoxFit.cover,
@@ -99,7 +99,8 @@ class ShopScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             Text(
-                              storePageSuccessDataModel.data![0].storeName!,
+                              storePageSearchSuccessDataModel
+                                  .data![0].storeName!,
                               style: const TextStyle(
                                 color: ColorManager.white,
                                 fontWeight: FontWeightManager.medium,
@@ -126,12 +127,12 @@ class ShopScreen extends StatelessWidget {
                                 radius: AppSize.s25,
                                 backgroundColor: ColorManager.accent,
                                 child: Icon(
-                                  storePageSuccessDataModel
+                                  storePageSearchSuccessDataModel
                                           .data![0].isAddToFavoraite!
                                       ? Icons.favorite
                                       : Icons.favorite_border,
                                   size: AppSize.s19,
-                                  color: storePageSuccessDataModel
+                                  color: storePageSearchSuccessDataModel
                                           .data![0].isAddToFavoraite!
                                       ? ColorManager.red
                                       : Colors.white,
@@ -159,9 +160,9 @@ class ShopScreen extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) =>
                               ShopCategoryItemWidget(
-                            image: storePageSuccessDataModel.data![0]
+                            image: storePageSearchSuccessDataModel.data![0]
                                 .storePageTypesDto![index].storeTypeImage!,
-                            text: storePageSuccessDataModel.data![0]
+                            text: storePageSearchSuccessDataModel.data![0]
                                 .storePageTypesDto![index].storeTypeName!,
 
                             ///todo
@@ -170,7 +171,7 @@ class ShopScreen extends StatelessWidget {
                           separatorBuilder: (context, index) => const SizedBox(
                             width: AppSize.s16,
                           ),
-                          itemCount: storePageSuccessDataModel
+                          itemCount: storePageSearchSuccessDataModel
                               .data![0].storePageTypesDto!.length,
                         ),
                       ),
@@ -340,12 +341,21 @@ class ShopScreen extends StatelessWidget {
                           itemBuilder: (context, index) =>
                               ShopItemHorizontalWidget(
                             onTap: () {
-                              cubit.getProductDetailsButtonPressed(
+                              // cubit.getProductDetailsSearchButtonPressed(
+                              //   context,
+                              //   int.parse(storePageSuccessDataModel.data![0]
+                              //       .storePageProductsDto![index].productId!),
+                              // );
+                              Navigator.push(
                                 context,
-                                storePageSuccessDataModel
-                                    .data![0]
-                                    .storePageProductsDto![index]
-                                    .productId! as int,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductScreen(
+                                      storeName: storePageSearchSuccessDataModel
+                                          .data![0].storeName!,
+                                      model: storePageSearchSuccessDataModel
+                                          .data![0]
+                                          .storePageProductsDto![index]),
+                                ),
                               );
                             },
 
@@ -353,24 +363,26 @@ class ShopScreen extends StatelessWidget {
                             inCart: false,
                             cartPress: () {},
 
-                            isFavorite: storePageSuccessDataModel.data![0]
+                            isFavorite: storePageSearchSuccessDataModel.data![0]
                                 .storePageProductsDto![index].isAddToFavoraite!,
-                            name: storePageSuccessDataModel.data![0]
+                            name: storePageSearchSuccessDataModel.data![0]
                                 .storePageProductsDto![index].productName!,
-                            price: storePageSuccessDataModel.data![0]
+                            price: storePageSearchSuccessDataModel.data![0]
                                 .storePageProductsDto![index].productPrice!,
-                            image: storePageSuccessDataModel.data![0]
+                            image: storePageSearchSuccessDataModel.data![0]
                                 .storePageProductsDto![index].productImage!,
-                            quantity: storePageSuccessDataModel.data![0]
+                            quantity: storePageSearchSuccessDataModel.data![0]
                                 .storePageProductsDto![index].productQuantity!,
-                            rate: int.parse(storePageSuccessDataModel.data![0]
-                                    .storePageProductsDto![index].productRate!)
+                            rate: int.parse(storePageSearchSuccessDataModel
+                                    .data![0]
+                                    .storePageProductsDto![index]
+                                    .productRate!)
                                 .toDouble(),
                           ),
                           separatorBuilder: (context, index) => const SizedBox(
                             height: AppSize.s10,
                           ),
-                          itemCount: storePageSuccessDataModel
+                          itemCount: storePageSearchSuccessDataModel
                               .data![0].storePageProductsDto!.length,
                         ),
                       ],

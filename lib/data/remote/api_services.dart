@@ -7,7 +7,7 @@ import 'package:yomy_cart/data/remote/store_page_api.dart';
 import 'auth_api_services.dart';
 import 'brand_page_api.dart';
 import 'product_details_page_api.dart';
-import 'product_page_api.dart';
+import 'product_page_search_api.dart';
 import 'store_offer_page_api.dart';
 import 'store_page_search_api.dart';
 import 'update_persone_account_api.dart';
@@ -28,7 +28,7 @@ class ApiServices {
 
   StorePageSearchApi storePageSearchApi() => StorePageSearchApi.instance;
 
-  ProductPageApi productPageApi() => ProductPageApi.instance;
+  ProductPageSearchApi productPageSearchApi() => ProductPageSearchApi.instance;
 
   StoreOfferPageApi storeOfferPageApi() => StoreOfferPageApi.instance;
 

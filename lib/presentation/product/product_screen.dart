@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yomy_cart/models/product_details/product_details_success_model.dart';
+import '../../models/product_search/product_details_search_success_model.dart';
+import '../../models/store_page_search/store_page_search_success_model.dart';
 import '/presentation/product/cubit/product_cubit.dart';
 import '/presentation/product/cubit/product_state.dart';
 import '/presentation/resources/assets_manager.dart';
@@ -15,9 +17,11 @@ import '/presentation/widgets/produt_similar_iteem_widget.dart';
 import '/presentation/widgets/white_app_bar_widget.dart';
 
 class ProductScreen extends StatelessWidget {
-  final ProductDetailsSuccessModel model;
+  final String storeName;
+  final StorePageProductsDto model;
 
-  const ProductScreen({Key? key, required this.model}) : super(key: key);
+  const ProductScreen({Key? key, required this.model, required this.storeName})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +59,7 @@ class ProductScreen extends StatelessWidget {
                           ),
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           child: Image.network(
-                            '',
+                            model.productImage!,
                             height: AppSize.s168,
                             width: double.infinity,
                             fit: BoxFit.cover,
@@ -87,7 +91,7 @@ class ProductScreen extends StatelessWidget {
                                       MediaQuery.of(context).size.height * 0.01,
                                 ),
                                 Text(
-                                  '4.1',
+                                  model.productRate!,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
@@ -108,7 +112,7 @@ class ProductScreen extends StatelessWidget {
                     ),
                     Center(
                       child: Text(
-                        'LANSHON HALWANY',
+                        model.productName!,
                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
                               color: ColorManager.grey4,
                             ),
@@ -128,6 +132,8 @@ class ProductScreen extends StatelessWidget {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
+
+                    ///todo
                     Text(
                       '''Product description will be here bla bla bla and bla
 will be here bla bla will be here bla bla .
@@ -156,7 +162,7 @@ will be here bla bla will be here bla bla
                           width: MediaQuery.of(context).size.height * 0.02,
                         ),
                         Text(
-                          'Halwany',
+                          storeName,
                           style: const TextStyle(
                             color: ColorManager.grey4,
                             fontSize: AppSize.s14,
@@ -181,7 +187,7 @@ will be here bla bla will be here bla bla
                           width: MediaQuery.of(context).size.height * 0.02,
                         ),
                         Text(
-                          '80 EGP / KG',
+                          "${model.productPrice!} EGP",
                           style: const TextStyle(
                             color: ColorManager.grey4,
                             fontSize: AppSize.s14,
@@ -310,10 +316,10 @@ will be here bla bla will be here bla bla
                                 cubit.changeFavoriteButton();
                               },
                               icon: Icon(
-                                cubit.isFavorite
+                                model.isAddToFavoraite!
                                     ? Icons.favorite_rounded
                                     : Icons.favorite_border,
-                                color: cubit.isFavorite
+                                color: model.isAddToFavoraite!
                                     ? ColorManager.red
                                     : ColorManager.white,
                                 size: AppSize.s22,
