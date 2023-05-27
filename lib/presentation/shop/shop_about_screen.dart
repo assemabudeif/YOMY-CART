@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../models/store_page_search/store_page_search_success_model.dart';
 import '/presentation/resources/assets_manager.dart';
 import '/presentation/resources/colors_manager.dart';
 import '/presentation/resources/font_manager.dart';
@@ -20,7 +21,9 @@ class ShopAboutScreen extends StatelessWidget {
   final String summary;
   final String address;*/
 
-  const ShopAboutScreen({Key? key}) : super(key: key);
+  final StorePageSearchSuccessModel model;
+
+  const ShopAboutScreen({Key? key, required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

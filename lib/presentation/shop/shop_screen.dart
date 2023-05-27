@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yomy_cart/presentation/product/product_screen.dart';
+import 'package:yomy_cart/presentation/shop/shop_about_screen.dart';
 import '../../models/Store_page/store_page_success_model.dart';
 import '../../models/store_page_search/store_page_search_success_model.dart';
 import '/presentation/resources/assets_manager.dart';
@@ -111,7 +112,12 @@ class ShopScreen extends StatelessWidget {
                             const Spacer(),
                             IconButton(
                               onPressed: () {
-                                Navigator.pushNamed(context, Routes.shopAbout);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ShopAboutScreen(
+                                            model:
+                                                storePageSearchSuccessDataModel)));
                               },
                               icon: CircleAvatar(
                                 radius: AppSize.s25,

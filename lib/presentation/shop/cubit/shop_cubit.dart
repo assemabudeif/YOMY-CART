@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yomy_cart/models/brand_page/brand_page_success_odel.dart';
+import '../../../models/brand_page/brand_page_error_400_model.dart';
+import '../../../models/brand_page/brand_page_error_model.dart';
 import '../../../models/product_details/product_details_error_400_model.dart';
 import '../../../models/product_details/product_details_error_model.dart';
 import '../../../models/product_details/product_details_success_model.dart';
@@ -12,6 +15,9 @@ import '../../../models/product_page_search/product_page_search_success_model.da
 import '../../../models/product_search/product_details_search_error_400_model.dart';
 import '../../../models/product_search/product_details_search_error_model.dart';
 import '../../../models/product_search/product_details_search_success_model.dart';
+import '../../../models/products/products_error400_model.dart';
+import '../../../models/products/products_error_model.dart';
+import '../../../models/products/products_success_model.dart';
 import '../../../models/store_page_search/store_page_search_error400_model.dart';
 import '../../../models/store_page_search/store_page_search_error_model.dart';
 import '../../../models/store_page_search/store_page_search_success_model.dart';
@@ -259,6 +265,37 @@ class ShopCubit extends Cubit<ShopState> {
       log(response.detail.toString());
       storeOfferError400Model = response;
       emit(GetStoreOfferError400State(response));
+    }
+  }
+
+  ProductsSuccessModel? productsSuccessModel;
+  ProductsError400Model? productsError400Model;
+  ProductsErrorModel? productsErrorModel;
+
+  Future<void> getProductsButtonPressed(BuildContext context, int id) async {
+    emit(GetProductsLoadingState());
+    final response =
+        await Repository.instance.productsRepository().getProducts(id);
+
+    if (response is ProductsSuccessModel) {
+      log(response.toString());
+      productsSuccessModel = response;
+
+      emit(GetProductsSuccessState(response));
+    } else if (response is ProductsErrorModel) {
+      log('Error: ${response.toString()}');
+      if (response.messages![0] == "Authentication Failed.") {
+        log('Error: ${response.messages}');
+
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.loginRoute, (route) => false);
+      }
+      productsErrorModel = response;
+      emit(GetProductsErrorState(response));
+    } else if (response is ProductsError400Model) {
+      log(response.detail.toString());
+      productsError400Model = response;
+      emit(GetProductsError400State(response));
     }
   }
 }
