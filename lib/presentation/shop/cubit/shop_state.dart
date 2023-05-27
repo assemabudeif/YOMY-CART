@@ -11,6 +11,9 @@ import '../../../models/product_page_search/product_page_search_success_model.da
 import '../../../models/product_search/product_details_search_error_400_model.dart';
 import '../../../models/product_search/product_details_search_error_model.dart';
 import '../../../models/product_search/product_details_search_success_model.dart';
+import '../../../models/products/products_error400_model.dart';
+import '../../../models/products/products_error_model.dart';
+import '../../../models/products/products_success_model.dart';
 import '../../../models/store_page_search/store_page_search_error400_model.dart';
 
 abstract class ShopState {}
@@ -83,6 +86,26 @@ class GetProductPageSearchError400State extends ShopState {
   final ProductPageSearchError400Model productPageSearchError400Model;
 
   GetProductPageSearchError400State(this.productPageSearchError400Model);
+}
+
+class GetProductsLoadingState extends ShopState {}
+
+class GetProductsSuccessState extends ShopState {
+  final ProductsSuccessModel productsSuccessModel;
+
+  GetProductsSuccessState(this.productsSuccessModel);
+}
+
+class GetProductsErrorState extends ShopState {
+  final ProductsErrorModel productsErrorModel;
+
+  GetProductsErrorState(this.productsErrorModel);
+}
+
+class GetProductsError400State extends ShopState {
+  final ProductsError400Model productsError400Model;
+
+  GetProductsError400State(this.productsError400Model);
 }
 
 class GetStoreOfferLoadingState extends ShopState {}

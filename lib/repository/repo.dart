@@ -10,6 +10,7 @@ import 'Home_repo.dart';
 import 'auth_repo.dart';
 import 'product_details_search_repo.dart';
 import 'product_page_search_repo.dart';
+import 'products_repo.dart';
 import 'update_personal_account_repo.dart';
 
 class Repository {
@@ -35,6 +36,8 @@ class Repository {
 
   ProductPageSearchRepository productPageSearchRepository() =>
       ProductPageSearchRepository.instance;
+
+  ProductsRepository productsRepository() => ProductsRepository.instance;
 
   ProductDetailsSearchRepository productDetailsSearchRepository() =>
       ProductDetailsSearchRepository.instance;
