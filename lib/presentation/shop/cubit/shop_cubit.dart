@@ -298,4 +298,35 @@ class ShopCubit extends Cubit<ShopState> {
       emit(GetProductsError400State(response));
     }
   }
+
+  BrandPageSuccessModel? brandPageSuccessModel;
+  BrandPageError400Model? brandPageError400Model;
+  BrandPageErrorModel? brandPageErrorModel;
+
+  Future<void> getBrandPageButtonPressed(BuildContext context, int id) async {
+    emit(GetBrandPageLoadingState());
+    final response =
+        await Repository.instance.brandPageRepository().getBrandPageData(id);
+
+    if (response is BrandPageSuccessModel) {
+      log(response.toString());
+      brandPageSuccessModel = response;
+
+      emit(GetBrandPageSuccessState(response));
+    } else if (response is BrandPageErrorModel) {
+      log('Error: ${response.toString()}');
+      if (response.messages![0] == "Authentication Failed.") {
+        log('Error: ${response.messages}');
+
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.loginRoute, (route) => false);
+      }
+      brandPageErrorModel = response;
+      emit(GetBrandPageErrorState(response));
+    } else if (response is BrandPageError400Model) {
+      log(response.detail.toString());
+      brandPageError400Model = response;
+      emit(GetBrandPageError400State(response));
+    }
+  }
 }

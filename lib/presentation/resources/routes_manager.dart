@@ -50,7 +50,7 @@ class Routes {
   static const contactUs = '/contact_us';
   // static const shop = '/shop';
   //static const shopAbout = '/shop_about';
-  static const branches = '/branches';
+  //static const branches = '/branches';
   static const reviews = '/reviews';
   static const search = '/search';
   // static const product = '/product';
@@ -111,8 +111,8 @@ class AppRoutes {
       //  return MaterialPageRoute(builder: (context) => ShopScreen());
       // case Routes.shopAbout:
       //   return MaterialPageRoute(builder: (context) => ShopAboutScreen());
-      case Routes.branches:
-        return MaterialPageRoute(builder: (context) => BranchesScreen());
+      // case Routes.branches:
+      //   return MaterialPageRoute(builder: (context) => BranchesScreen());
       case Routes.reviews:
         return MaterialPageRoute(builder: (context) => ReviewsScreen());
       case Routes.search:

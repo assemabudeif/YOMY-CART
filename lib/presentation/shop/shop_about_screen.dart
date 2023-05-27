@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yomy_cart/presentation/branches/branches_screen.dart';
 import '../../models/store_page_search/store_page_search_success_model.dart';
 import '/presentation/resources/assets_manager.dart';
 import '/presentation/resources/colors_manager.dart';
@@ -16,11 +17,6 @@ import '/presentation/widgets/driver_widget.dart';
 import '/presentation/widgets/white_app_bar_widget.dart';
 
 class ShopAboutScreen extends StatelessWidget {
-  /* final int branchesNum;
-  final double rate;
-  final String summary;
-  final String address;*/
-
   final StorePageSearchSuccessModel model;
 
   const ShopAboutScreen({Key? key, required this.model}) : super(key: key);
@@ -30,7 +26,15 @@ class ShopAboutScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ShopCubit(),
       child: BlocConsumer<ShopCubit, ShopState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is GetBrandPageSuccessState) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BranchesScreen(
+                        brandPageSuccessModel: state.brandPageSuccessModel)));
+          }
+        },
         builder: (context, state) {
           var cubit = ShopCubit.get(context);
           return Scaffold(
@@ -84,7 +88,8 @@ class ShopAboutScreen extends StatelessWidget {
                         const Spacer(),
                         IconButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, Routes.branches);
+                            ///todo Brand Id
+                            cubit.getBrandPageButtonPressed(context, 1);
                           },
                           icon: const Icon(
                             Icons.arrow_forward_ios_rounded,
