@@ -55,12 +55,13 @@ class HomeListItemWidget extends StatelessWidget {
                     Row(
                       children: [
                         RatingBar.builder(
-                          initialRating: 1,
-                          minRating: 1,
+                          initialRating: rate.toDouble(),
+                          minRating: 0.0,
                           itemSize: AppSize.s12,
                           direction: Axis.horizontal,
                           allowHalfRating: true,
-                          itemCount: rate.toInt(),
+                          ignoreGestures: true,
+                          itemCount: 5,
                           itemPadding: EdgeInsets.zero,
                           itemBuilder: (context, _) => const Icon(
                             Icons.star,

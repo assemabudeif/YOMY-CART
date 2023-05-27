@@ -90,6 +90,7 @@ class ShopItemVerticalWidget extends StatelessWidget {
                       itemSize: AppSize.s12,
                       direction: Axis.horizontal,
                       allowHalfRating: true,
+                      ignoreGestures: true,
                       itemCount: 5,
                       itemPadding: EdgeInsets.zero,
                       itemBuilder: (context, _) => const Icon(
