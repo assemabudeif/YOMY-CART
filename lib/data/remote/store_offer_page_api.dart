@@ -1,18 +1,19 @@
 import 'package:dio/dio.dart';
 
-import '../../models/Store_page/store_page_error400_model.dart';
-import '../../models/Store_page/store_page_error_model.dart';
-import '../../models/Store_page/store_page_model.dart';
-import '../../models/Store_page/store_page_success_model.dart';
+import '../../models/store_page_search/store_page_search_error400_model.dart';
+import '../../models/store_page_search/store_page_search_error_model.dart';
+import '../../models/store_page_search/store_page_search_model.dart';
+import '../../models/store_page_search/store_page_search_success_model.dart';
 import '../../utilis/consetant.dart';
 import 'dio_logger.dart';
 import 'end_points.dart';
 
 class StoreOfferPageApi {
   static StoreOfferPageApi instance = StoreOfferPageApi._();
+
   StoreOfferPageApi._();
 
-  Future<StorePageModel> fetchStoreOfferPage(
+  Future<StorePageSearchModel> fetchStoreOfferPage(
       {required int storeOfferId}) async {
     try {
       Response response = await DioLogger.getDio().post(
@@ -30,15 +31,15 @@ class StoreOfferPageApi {
         ),
       );
       if (response.statusCode == 200) {
-        return StorePageSuccessModel.fromJson(response.data);
+        return StorePageSearchSuccessModel.fromJson(response.data);
       } else {
-        return StorePageErrorModel.fromJson(response.data);
+        return StorePageSearchErrorModel.fromJson(response.data);
       }
     } on DioError catch (e) {
       if (e.response!.statusCode == 400) {
-        return StorePageError400Model.fromJson(e.response!.data);
+        return StorePageSearchError400Model.fromJson(e.response!.data);
       } else {
-        return StorePageErrorModel.fromJson(e.response!.data);
+        return StorePageSearchErrorModel.fromJson(e.response!.data);
       }
     }
   }

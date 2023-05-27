@@ -1,5 +1,5 @@
 import '../data/remote/api_services.dart';
-import '../models/Store_page/store_page_model.dart';
+import '../models/store_page_search/store_page_search_model.dart';
 
 class StoreOfferPageRepository {
   static final instance = StoreOfferPageRepository._internal();
@@ -8,7 +8,7 @@ class StoreOfferPageRepository {
 
   factory StoreOfferPageRepository() => instance;
 
-  Future<StorePageModel> getStoreOfferDetails(int storeOfferId) async =>
+  Future<StorePageSearchModel> getStoreOfferDetails(int storeOfferId) async =>
       await ApiServices.instance
           .storeOfferPageApi()
           .fetchStoreOfferPage(storeOfferId: storeOfferId);

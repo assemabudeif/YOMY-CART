@@ -1,6 +1,8 @@
 import 'package:yomy_cart/models/product_details/product_details_error_400_model.dart';
 import 'package:yomy_cart/models/product_details/product_details_error_model.dart';
 import 'package:yomy_cart/models/product_details/product_details_success_model.dart';
+import 'package:yomy_cart/models/store_page_search/store_page_search_error_model.dart';
+import 'package:yomy_cart/models/store_page_search/store_page_search_success_model.dart';
 
 import '../../../models/product_details/product_details_model.dart';
 import '../../../models/product_page_search/product_page_search_error400_model.dart';
@@ -9,6 +11,7 @@ import '../../../models/product_page_search/product_page_search_success_model.da
 import '../../../models/product_search/product_details_search_error_400_model.dart';
 import '../../../models/product_search/product_details_search_error_model.dart';
 import '../../../models/product_search/product_details_search_success_model.dart';
+import '../../../models/store_page_search/store_page_search_error400_model.dart';
 
 abstract class ShopState {}
 
@@ -80,4 +83,24 @@ class GetProductPageSearchError400State extends ShopState {
   final ProductPageSearchError400Model productPageSearchError400Model;
 
   GetProductPageSearchError400State(this.productPageSearchError400Model);
+}
+
+class GetStoreOfferLoadingState extends ShopState {}
+
+class GetStoreOfferSuccessState extends ShopState {
+  final StorePageSearchSuccessModel storePageSearchSuccessModel;
+
+  GetStoreOfferSuccessState(this.storePageSearchSuccessModel);
+}
+
+class GetStoreOfferErrorState extends ShopState {
+  final StorePageSearchErrorModel storePageSearchErrorModel;
+
+  GetStoreOfferErrorState(this.storePageSearchErrorModel);
+}
+
+class GetStoreOfferError400State extends ShopState {
+  final StorePageSearchError400Model storePageSearchError400Model;
+
+  GetStoreOfferError400State(this.storePageSearchError400Model);
 }
