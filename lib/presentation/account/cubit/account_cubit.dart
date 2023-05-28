@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yomy_cart/models/update_person_account/update_person_account_success_model.dart';
 import '../../../data/local/shared_prefrences.dart';
+import '../../../models/account_change_password/account_change_password_error400s_model.dart';
+import '../../../models/account_change_password/account_change_password_error_model.dart';
+import '../../../models/account_change_password/account_change_password_success_model.dart';
 import '../../../models/update_person_account/update_person_account_error400_model.dart';
 import '../../../models/update_person_account/update_person_account_error_model.dart';
 import '../../../repository/repo.dart';
@@ -16,12 +19,6 @@ class AccountCubit extends Cubit<AccountState> {
   AccountCubit() : super(AccountInitial());
 
   static AccountCubit get(BuildContext context) => BlocProvider.of(context);
-
-  var emailController = TextEditingController();
-  var nameController = TextEditingController();
-  var passwordController = TextEditingController();
-  var phoneController = TextEditingController();
-  var formKey = GlobalKey<FormState>();
 
   bool isMyAccount = true;
   bool isSettings = true;
@@ -116,6 +113,63 @@ class AccountCubit extends Cubit<AccountState> {
         message: response.detail!,
       );
       emit(UpdatePersonalAccountError400State(response));
+    }
+  }
+
+  AccountChangePasswordSuccessModel? accountChangePasswordSuccessModel;
+  AccountChangePasswordErrorModel? accountChangePasswordErrorModel;
+  AccountChangePasswordError400Model? accountChangePasswordError400Model;
+
+  Future<void> changePasswordAccountFunction(
+    context, {
+    required String password,
+    required String newPassword,
+    required String confirmNewPassword,
+  }) async {
+    emit(AccountChangePasswordLoadingState());
+    final response = await Repository.instance
+        .accountChangePasswordRepository()
+        .changePasswordAccount(
+          password: password,
+          newPassword: newPassword,
+          confirmNewPassword: confirmNewPassword,
+        );
+
+    if (response is AccountChangePasswordSuccessModel) {
+      log(response.toString());
+      accountChangePasswordSuccessModel = response;
+      ErrorHandler.showSuccessSnackBar(
+        context: context,
+        message: response.message,
+      );
+
+      emit(AccountChangePasswordSuccessState(response.message));
+    } else if (response is AccountChangePasswordErrorModel) {
+      log('Error: ${response.messages}');
+      for (var element in response.messages!) {
+        ErrorHandler.showErrorSnackBar(
+          context: context,
+          message: element,
+        );
+        log(element);
+      }
+
+      if (response.messages![0] == "Authentication Failed.") {
+        log('Error: ${response.messages}');
+
+        accountChangePasswordErrorModel = response;
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.loginRoute, (route) => false);
+        emit(AccountChangePasswordErrorState(response));
+      }
+    } else if (response is AccountChangePasswordError400Model) {
+      log(response.detail.toString());
+      accountChangePasswordError400Model = response;
+      ErrorHandler.showErrorSnackBar(
+        context: context,
+        message: response.detail!,
+      );
+      emit(AccountChangePasswordError400State(response));
     }
   }
 }
