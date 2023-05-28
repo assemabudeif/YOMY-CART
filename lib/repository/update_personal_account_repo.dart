@@ -14,6 +14,25 @@ class UpdatePersonalAccountRepository {
     required String lastName,
     required String phoneNumber,
     required String email,
+    required bool deleteCurrentImage,
+  }) async =>
+      await ApiServices.instance
+          .updatePersonalAccountApi()
+          .updatePersonalAccount(
+            id: id,
+            firstName: firstName,
+            lastName: lastName,
+            phoneNumber: phoneNumber,
+            email: email,
+            deleteCurrentImage: deleteCurrentImage,
+          );
+
+  Future<UpdatePersonalAccountModel> updatePersonalAccountWithImage({
+    required String id,
+    required String firstName,
+    required String lastName,
+    required String phoneNumber,
+    required String email,
     required String imageName,
     required String imageExtension,
     required String imageData,
@@ -21,7 +40,7 @@ class UpdatePersonalAccountRepository {
   }) async =>
       await ApiServices.instance
           .updatePersonalAccountApi()
-          .updatePersonalAccount(
+          .updatePersonalAccountWithImage(
             id: id,
             firstName: firstName,
             lastName: lastName,

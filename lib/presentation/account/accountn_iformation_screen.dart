@@ -1,13 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yomy_cart/presentation/account/cubit/account_cubit.dart';
 import 'package:yomy_cart/presentation/account/cubit/account_state.dart';
 import '../../models/personal_account/personal_account_success_model.dart';
-import '../../utilis/error_handler.dart';
-import '/presentation/resources/assets_manager.dart';
 import '/presentation/resources/colors_manager.dart';
 import '/presentation/resources/routes_manager.dart';
 import '/presentation/resources/strings_manager.dart';
@@ -37,14 +32,17 @@ class AccountInformationScreen extends StatelessWidget {
     passwordController.text = '123';
     firstNameController.text = model.firstName!;
     lastNameController.text = model.lastName!;
-    phoneController.text = model.phoneNumber ?? '0100000';
-    emailController.text = model.email! ?? 'email@gmail.com';
+    phoneController.text = model.phoneNumber ?? '';
+    emailController.text = model.email!;
     var cubit = AccountCubit.get(context);
+    var accountImage = cubit.accountImage;
+
     return BlocProvider(
       create: (context) => AccountCubit(),
       child: BlocConsumer<AccountCubit, AccountState>(
         listener: (context, state) {
           if (state is UpdatePersonalAccountSuccessState) {
+            ///todo
             Navigator.pop(context);
           }
         },
@@ -62,45 +60,40 @@ class AccountInformationScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     // profile image
-                    Center(
-                      child: Stack(
-                        alignment: Alignment.bottomRight,
-                        children: [
-                          model.imageUrl == null
-                              ? SvgPicture.asset(
-                                  ImageAssets.profileImage,
-                                  height: AppSize.s60,
-                                  width: AppSize.s60,
-                                  fit: BoxFit.cover,
-                                )
-                              : Image.network(
-                                  model.imageUrl!,
-                                  height: AppSize.s60,
-                                  width: AppSize.s60,
-                                  fit: BoxFit.cover,
-                                ),
-                          const Padding(
-                            padding: EdgeInsetsDirectional.only(
-                              bottom: 1.0,
-                              end: 1.0,
-                            ),
-
-                            ///todo camera
-                            child: InkWell(
-                              child: CircleAvatar(
-                                radius: AppSize.s9,
-                                backgroundColor: ColorManager.accent,
-                                child: Icon(
-                                  Icons.add,
-                                  color: ColorManager.white,
-                                  size: 19.0,
-                                ),
-                              ),
+                    Stack(
+                      alignment: AlignmentDirectional.bottomEnd,
+                      children: [
+                        ///todo condition
+                        if (state is! AccountImagePickedSuccessState)
+                          CircleAvatar(
+                            radius: 60.0,
+                            backgroundImage: NetworkImage(
+                              model.imageUrl ??
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJ1S0dbT6_X45YWOdDKArI9NqDp3je9-1FUGhITp9jLK0svOyhYYJGL1HLV2wXQd2TcyM&usqp=CAU',
                             ),
                           ),
-                        ],
-                      ),
+                        if (state is AccountImagePickedSuccessState)
+                          CircleAvatar(
+                            radius: 60.0,
+                            backgroundImage: FileImage(accountImage!),
+                          ),
+                        IconButton(
+                          icon: const CircleAvatar(
+                            backgroundColor: ColorManager.accent,
+                            radius: 25.0,
+                            child: Icon(
+                              Icons.add,
+                              size: 16.0,
+                              color: ColorManager.white,
+                            ),
+                          ),
+                          onPressed: () {
+                            cubit.getAccountImage();
+                          },
+                        ),
+                      ],
                     ),
+
                     const SizedBox(
                       height: AppPadding.p14,
                     ),
@@ -170,20 +163,32 @@ class AccountInformationScreen extends StatelessWidget {
                         child: DefaultButtonWidget(
                           text: StringsManager.update,
                           onPressed: () {
-                            cubit.updatePersonalAccountFunction(
-                              context,
-                              id: model.id!,
-                              firstName: firstNameController.text,
-                              lastName: lastNameController.text,
-                              phoneNumber: phoneController.text,
-                              email: emailController.text,
+                            if (cubit.accountImage == null) {
+                              cubit.updatePersonalAccountFunction(
+                                context,
+                                id: model.id!,
+                                firstName: firstNameController.text,
+                                lastName: lastNameController.text,
+                                phoneNumber: phoneController.text,
+                                email: emailController.text,
+                                deleteCurrentImage: false,
+                              );
+                            } else if (cubit.accountImage != null) {
+                              cubit.updatePersonalAccountWithImageFunction(
+                                context,
+                                id: model.id!,
+                                firstName: firstNameController.text,
+                                lastName: lastNameController.text,
+                                phoneNumber: phoneController.text,
+                                email: emailController.text,
 
-                              ///todo Image data
-                              imageName: 'Name',
-                              imageExtension: 'png',
-                              imageData: '00',
-                              deleteCurrentImage: false,
-                            );
+                                ///todo Image data
+                                imageName: 'Name',
+                                imageExtension: 'png',
+                                imageData: '00',
+                                deleteCurrentImage: true,
+                              );
+                            }
                           },
                         ),
                       ),
