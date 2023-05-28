@@ -1,5 +1,7 @@
 import 'package:yomy_cart/models/update_person_account/update_person_account_error400_model.dart';
 
+import '../../../models/account_change_password/account_change_password_error400s_model.dart';
+import '../../../models/account_change_password/account_change_password_error_model.dart';
 import '../../../models/update_person_account/update_person_account_error_model.dart';
 
 abstract class AccountState {}
@@ -28,4 +30,24 @@ class UpdatePersonalAccountError400State extends AccountState {
   final UpdatePersonalAccountError400Model updatePersonalAccountError400Model;
 
   UpdatePersonalAccountError400State(this.updatePersonalAccountError400Model);
+}
+
+class AccountChangePasswordLoadingState extends AccountState {}
+
+class AccountChangePasswordSuccessState extends AccountState {
+  final String message;
+
+  AccountChangePasswordSuccessState(this.message);
+}
+
+class AccountChangePasswordErrorState extends AccountState {
+  final AccountChangePasswordErrorModel accountChangePasswordErrorModel;
+
+  AccountChangePasswordErrorState(this.accountChangePasswordErrorModel);
+}
+
+class AccountChangePasswordError400State extends AccountState {
+  final AccountChangePasswordError400Model accountChangePasswordError400Model;
+
+  AccountChangePasswordError400State(this.accountChangePasswordError400Model);
 }
