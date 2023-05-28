@@ -32,6 +32,28 @@ class UpdatePersonalAccountError400State extends AccountState {
   UpdatePersonalAccountError400State(this.updatePersonalAccountError400Model);
 }
 
+class UpdatePersonalAccountWithImageLoadingState extends AccountState {}
+
+class UpdatePersonalAccountWithImageSuccessState extends AccountState {
+  final String message;
+
+  UpdatePersonalAccountWithImageSuccessState(this.message);
+}
+
+class UpdatePersonalAccountWithImageErrorState extends AccountState {
+  final UpdatePersonalAccountErrorModel updatePersonalAccountErrorModel;
+
+  UpdatePersonalAccountWithImageErrorState(
+      this.updatePersonalAccountErrorModel);
+}
+
+class UpdatePersonalAccountWithImageError400State extends AccountState {
+  final UpdatePersonalAccountError400Model updatePersonalAccountError400Model;
+
+  UpdatePersonalAccountWithImageError400State(
+      this.updatePersonalAccountError400Model);
+}
+
 class AccountChangePasswordLoadingState extends AccountState {}
 
 class AccountChangePasswordSuccessState extends AccountState {
@@ -51,3 +73,9 @@ class AccountChangePasswordError400State extends AccountState {
 
   AccountChangePasswordError400State(this.accountChangePasswordError400Model);
 }
+
+class AccountImagePickedSuccessState extends AccountState {}
+
+class AccountImagePickedErrorState extends AccountState {}
+
+class DeleteAccountImageSuccessState extends AccountState {}

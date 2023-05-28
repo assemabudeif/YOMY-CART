@@ -19,6 +19,53 @@ class UpdatePersonalAccountApi {
     required String lastName,
     required String phoneNumber,
     required String email,
+    required bool deleteCurrentImage,
+  }) async {
+    try {
+      Response response = await DioLogger.getDio().put(
+        Endpoints.updatePersonalAccountApi,
+        data: {
+          "id": id,
+          "firstName": firstName,
+          "lastName": lastName,
+          "phoneNumber": phoneNumber,
+          "email": email,
+          /*"image": {
+            "name": imageName,
+            "extension": imageExtension,
+            "data": imageData
+          },*/
+          "deleteCurrentImage": deleteCurrentImage
+        },
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        return UpdatePersonalAccountSuccessModel(
+          message: 'Updated Successfully',
+        );
+      } else {
+        return UpdatePersonalAccountErrorModel.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      if (e.response!.statusCode == 400) {
+        return UpdatePersonalAccountError400Model.fromJson(e.response!.data);
+      } else {
+        return UpdatePersonalAccountErrorModel.fromJson(e.response!.data);
+      }
+    }
+  }
+
+  Future<UpdatePersonalAccountModel> updatePersonalAccountWithImage({
+    required String id,
+    required String firstName,
+    required String lastName,
+    required String phoneNumber,
+    required String email,
     required String imageName,
     required String imageExtension,
     required String imageData,

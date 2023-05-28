@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yomy_cart/utilis/helper.dart';
 import '../home/cubit/home_cubit.dart';
 import '/presentation/account/cubit/account_cubit.dart';
 import '/presentation/account/cubit/account_state.dart';
@@ -37,7 +36,6 @@ class AccountScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         //profile data
-
                         homeCubit.personalAccountSuccessModel != null
                             ? Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -45,22 +43,14 @@ class AccountScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: AppSize.s15,
                                   ),
-                                  homeCubit.personalAccountSuccessModel!
-                                              .imageUrl !=
-                                          null
-                                      ? Image.network(
-                                          homeCubit.personalAccountSuccessModel!
-                                              .imageUrl!,
-                                          height: 65,
-                                          width: 65,
-                                          fit: BoxFit.cover,
-                                        )
-                                      : SvgPicture.asset(
-                                          ImageAssets.profileImage,
-                                          height: 65,
-                                          width: 65,
-                                          fit: BoxFit.cover,
-                                        ),
+                                  CircleAvatar(
+                                    radius: 40.0,
+                                    backgroundImage: NetworkImage(
+                                      homeCubit.personalAccountSuccessModel!
+                                              .imageUrl ??
+                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJ1S0dbT6_X45YWOdDKArI9NqDp3je9-1FUGhITp9jLK0svOyhYYJGL1HLV2wXQd2TcyM&usqp=CAU',
+                                    ),
+                                  ),
                                   const SizedBox(
                                     height: AppSize.s7,
                                   ),
@@ -77,16 +67,11 @@ class AccountScreen extends StatelessWidget {
                                                         model: homeCubit
                                                             .personalAccountSuccessModel!,
                                                       )));
-                                          // context.push(AccountInformationScreen(
-                                          //   model: homeCubit
-                                          //       .personalAccountSuccessModel!,
-                                          // ));
                                         },
                                         child: SvgPicture.asset(
                                           ImageAssets.editIcon,
-                                          height: AppSize.s18,
-                                          width: AppSize.s18,
-                                          color: ColorManager.greyDark,
+                                          height: AppSize.s25,
+                                          width: AppSize.s25,
                                         ),
                                       ),
                                       const SizedBox(
@@ -94,9 +79,9 @@ class AccountScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         '${homeCubit.personalAccountSuccessModel!.firstName} ${homeCubit.personalAccountSuccessModel!.lastName}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: ColorManager.primaryLight,
-                                          fontSize: 17.0,
+                                          fontSize: 18.0,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -109,9 +94,9 @@ class AccountScreen extends StatelessWidget {
                                     homeCubit.personalAccountSuccessModel!
                                             .phoneNumber ??
                                         "000",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: ColorManager.greyDark,
-                                      fontSize: 14.0,
+                                      fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
