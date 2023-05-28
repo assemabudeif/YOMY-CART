@@ -1,3 +1,4 @@
+import 'package:yomy_cart/repository/account_change_password_repo.dart';
 import 'package:yomy_cart/repository/brand_page_repo.dart';
 import 'package:yomy_cart/repository/personal_account_repo.dart';
 import 'package:yomy_cart/repository/product_category_repo.dart';
@@ -52,4 +53,7 @@ class Repository {
 
   UpdatePersonalAccountRepository updatePersonalAccountRepository() =>
       UpdatePersonalAccountRepository.instance;
+
+  AccountChangePasswordRepository accountChangePasswordRepository() =>
+      AccountChangePasswordRepository.instance;
 }
