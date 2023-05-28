@@ -13,7 +13,7 @@ class AccountChangePasswordApi {
 
   AccountChangePasswordApi._();
 
-  Future<AccountChangePasswordModel> updatePersonalAccount({
+  Future<AccountChangePasswordModel> changePasswordAccount({
     required String password,
     required String newPassword,
     required String confirmNewPassword,
@@ -35,7 +35,7 @@ class AccountChangePasswordApi {
       );
       if (response.statusCode == 200) {
         return AccountChangePasswordSuccessModel(
-          message: 'Updated Successfully',
+          message: 'Changed Successfully',
         );
       } else {
         return AccountChangePasswordErrorModel.fromJson(response.data);
