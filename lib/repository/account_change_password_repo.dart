@@ -8,7 +8,7 @@ class AccountChangePasswordRepository {
 
   factory AccountChangePasswordRepository() => instance;
 
-  Future<AccountChangePasswordModel> updatePersonalAccount({
+  Future<AccountChangePasswordModel> changePasswordAccount({
     required String password,
     required String newPassword,
     required String confirmNewPassword,
